@@ -86,15 +86,15 @@ font =
     Xoooooo
   '''
   H: '''
-    XXXXXXX
+    XXXoXXX
+    XoXoXoX
+    XoXoXoX
+    XoooooX
+    XoXXXoX
     XoXoXoX
     XoXoXoX
     XoXoXoX
-    ooXXXoo
-    XoXoXoX
-    XoXoXoX
-    XoXoXoX
-    XXXXXXX
+    XXXoXXX
     Xoooooo
   '''
   I: '''
