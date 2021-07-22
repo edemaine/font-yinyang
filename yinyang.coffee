@@ -62,8 +62,10 @@ class Puzzle
         condition = cell == color
         condition = not condition if negate
         yield [i,j] if condition
+  numCellsMatching: (...args) -> Array.from(@cellsMatching ...args).length
   allCells: -> @cellsMatching -999, true
   filledCells: -> @cellsMatching EMPTY, true
+  numFilledCells: -> Array.from(@filledCells()).length
   firstCellMatching: (color, negate) ->
     for ij from @cellsMatching color, negate
       return ij
@@ -217,4 +219,4 @@ class Puzzle
       break unless cells.length
     @
 
-module?.exports = {Puzzle}
+module?.exports = {Puzzle, BLACK, WHITE, EMPTY}

@@ -1,4 +1,5 @@
-{Puzzle} = require './yinyang.coffee'
+fs = require 'fs'
+{Puzzle, BLACK, WHITE} = require './yinyang.coffee'
 
 font =
   A: '''
@@ -90,15 +91,27 @@ if false
     console.log 'RESOLVED'
     console.log puzzle.toAscii()
 
-for letter, ascii of font
-  console.log 'PUZZLE', letter
-  puzzle = Puzzle.fromAscii ascii
-  puzzle = puzzle.pad()
-  console.log puzzle.toAscii()
-  puzzle.reduceUnique()
-  #puzzle.reducePrune()
-  console.log 'REDUCED'
-  console.log puzzle.toAscii()
-  for solution from puzzle.solutions()
-    console.log 'RESOLVED'
+if false
+  for letter, ascii of font
+    console.log 'PUZZLE', letter
+    puzzle = Puzzle.fromAscii ascii
+    .pad()
     console.log puzzle.toAscii()
+    puzzle.reduceUnique()
+    #puzzle.reducePrune()
+    console.log 'REDUCED'
+    console.log puzzle.toAscii()
+    for solution from puzzle.solutions()
+      console.log 'RESOLVED'
+      console.log puzzle.toAscii()
+
+loop
+  for letter in process.argv[2..]
+    puzzle = Puzzle.fromAscii font[letter]
+    .pad()
+    puzzle.reduceUnique()
+    fs.appendFileSync "puzzles/#{letter}.asc", """
+      ----------------- #{puzzle.numFilledCells()}=#{puzzle.numCellsMatching BLACK}+#{puzzle.numCellsMatching WHITE}
+      #{puzzle.toAscii()}
+
+    """
