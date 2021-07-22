@@ -74,6 +74,124 @@ font =
     XoXoXoX
     Xoooooo
   '''
+  G: '''
+    XXXXXXX
+    XoooooX
+    XoXXXXX
+    XoXoooo
+    XoXoXXX
+    XoXoXoX
+    XoooooX
+    XXXXXXX
+    Xoooooo
+  '''
+  H: '''
+    XXXXXXX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    ooXXXoo
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XXXXXXX
+    Xoooooo
+  '''
+  I: '''
+    XXXXXXX
+    ooXoXoo
+    XXXoXXX
+    ooXoXoo
+    XXXoXXX
+    ooXoXoo
+    XXXoXXX
+    ooXoXoo
+    XXXoXXX
+    ooXoooo
+  '''
+  J: '''
+    XXXXXXX
+    XoooXoX
+    XXXoXoX
+    ooooXoX
+    XXXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoooXoX
+    XXXXXoX
+    ooooooX
+  '''
+  K: '''
+    XXXoXXX
+    XoXoXoX
+    XoXoooX
+    XoXXXXX
+    XoXoooo
+    XoXXXXX
+    XoXoooX
+    XoXoXoX
+    XXXoXXX
+    Xoooooo
+  '''
+  L: '''
+    XXXXXXX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoo
+    XoXoXXX
+    XoXoooo
+    XoXXXXX
+    Xoooooo
+    XXXXXXX
+    Xoooooo
+  '''
+  M: '''
+    XXXoXXX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXXXoX
+    Xoooooo
+  '''
+  N: '''
+    XXXoXXX
+    XoXoXoX
+    XoXoooX
+    XoXXoXX
+    XooXooX
+    XXoXXoX
+    XoooXoX
+    XoXoXoX
+    XXXoXXX
+    Xoooooo
+  '''
+  O: '''
+    XXXXXXX
+    XoooooX
+    XoXXXoX
+    XoXoXoX
+    XoooXoX
+    XXXXXoX
+    ooooooX
+    XXXXXXX
+    Xoooooo
+  '''
+  U: '''
+    XXXoXXX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXXXoX
+    Xoooooo
+    XXXXXXX
+    Xoooooo
+  '''
 
 if false
   console.log 'PUZZLE'
