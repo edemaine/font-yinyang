@@ -313,43 +313,45 @@ font =
     Xoooooo
   '''
 
-if false
-  console.log 'PUZZLE'
+test = (puzzle) ->
+  console.log '--- PUZZLE'
+  console.log puzzle.toAscii()
+  puzzle.reduceUnique()
+  #puzzle.reducePrune()
+  console.log '--- REDUCED'
+  console.log puzzle.toAscii()
+  for solution from puzzle.solutions()
+    console.log '--- RESOLVED'
+    console.log puzzle.toAscii()
+  console.log()
+
+testABC = ->
   puzzle = Puzzle.fromAscii font.A
   .padLeft()
   .concat (Puzzle.fromAscii font.B).padLeft()
   .concat (Puzzle.fromAscii font.C).padLeft()
   .padRight()
-  console.log puzzle.toAscii()
-  puzzle.reduceUnique()
-  #puzzle.reducePrune()
-  console.log 'REDUCED'
-  console.log puzzle.toAscii()
-  for solution from puzzle.solutions()
-    console.log 'RESOLVED'
-    console.log puzzle.toAscii()
+  test puzzle
 
-if false
+testFont = ->
   for letter, ascii of font
-    console.log 'PUZZLE', letter
     puzzle = Puzzle.fromAscii ascii
     .pad()
-    console.log puzzle.toAscii()
-    puzzle.reduceUnique()
-    #puzzle.reducePrune()
-    console.log 'REDUCED'
-    console.log puzzle.toAscii()
-    for solution from puzzle.solutions()
-      console.log 'RESOLVED'
-      console.log puzzle.toAscii()
+    test puzzle
 
-loop
-  for letter in process.argv[2..]
-    puzzle = Puzzle.fromAscii font[letter]
-    .pad()
-    puzzle.reduceUnique()
-    fs.appendFileSync "puzzles/#{letter}.asc", """
-      ----------------- #{puzzle.numFilledCells()}=#{puzzle.numCellsMatching BLACK}+#{puzzle.numCellsMatching WHITE}
-      #{puzzle.toAscii()}
+generateFont = ->
+  letters = process.argv[2..]
+  unless letters.length
+    letters = Object.keys font
+  loop
+    for letter in letters
+      puzzle = Puzzle.fromAscii font[letter]
+      .pad()
+      puzzle.reduceUnique()
+      fs.appendFileSync "puzzles/#{letter}.asc", """
+        ----------------- #{puzzle.numFilledCells()}=#{puzzle.numCellsMatching BLACK}+#{puzzle.numCellsMatching WHITE}
+        #{puzzle.toAscii()}
 
-    """
+      """
+
+generateFont()
