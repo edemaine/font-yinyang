@@ -37,6 +37,42 @@ font =
     XoXXXXX
     Xoooooo
   '''
+  D: '''
+    XXXXXXX
+    oXooooX
+    XXXXXoX
+    oXooooX
+    XXXXXoX
+    oXooooX
+    XXXXXoX
+    ooooooX
+    XXXXXXX
+    oxooooo
+  '''
+  E: '''
+    XXXXXXX
+    XoooooX
+    XoXXXXX
+    XoXoooo
+    XoXXXXX
+    XoooooX
+    XoXXXXX
+    XoXoooX
+    XoXXXXX
+    Xoooooo
+  '''
+  F: '''
+    XXXXXXX
+    XoooooX
+    XoXXXXX
+    XoXoooo
+    XoXXXXX
+    XoooooX
+    XoXXXXX
+    XoXoXoX
+    XoXoXoX
+    Xoooooo
+  '''
 
 if false
   console.log 'PUZZLE'
