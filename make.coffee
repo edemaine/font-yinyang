@@ -38,6 +38,22 @@ font =
     Xoooooo
   '''
 
+if false
+  console.log 'PUZZLE'
+  puzzle = Puzzle.fromAscii font.A
+  .padLeft()
+  .concat (Puzzle.fromAscii font.B).padLeft()
+  .concat (Puzzle.fromAscii font.C).padLeft()
+  .padRight()
+  console.log puzzle.toAscii()
+  puzzle.reduceUnique()
+  #puzzle.reducePrune()
+  console.log 'REDUCED'
+  console.log puzzle.toAscii()
+  for solution from puzzle.solutions()
+    console.log 'RESOLVED'
+    console.log puzzle.toAscii()
+
 for letter, ascii of font
   console.log 'PUZZLE', letter
   puzzle = Puzzle.fromAscii ascii
