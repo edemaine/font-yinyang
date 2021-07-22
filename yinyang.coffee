@@ -119,19 +119,29 @@ class Puzzle
     ###
     return if @prune()
     #console.log @toAscii()
-    ij = @firstCellMatching EMPTY
+    cells = Array.from @cellsMatching EMPTY
     ## Filled-in puzzle => solution!
-    unless ij?
+    unless cells.length
       #console.log "INCORRECT SOLUTION" unless @solved()
       yield @
-    else
+      return
+    ## Check for forced cells via 2x2 rule
+    for ij in cells
       [i, j] = ij
       for color in [BLACK, WHITE]
-        unless @local2x2 i, j, color
-          @cell[i][j] = color
-          #console.log '> recursing', i, j, cell2char[color]
+        if @local2x2 i, j, color
+          opp = opposite color
+          return if color == BLACK and @local2x2 i, j, opp
+          @cell[i][j] = opp
           yield from @solutions()
           @cell[i][j] = EMPTY
+          return
+    ## Branch on last cell
+    for color in [BLACK, WHITE]
+      @cell[i][j] = color
+      #console.log '> recursing', i, j, cell2char[color]
+      yield from @solutions()
+      @cell[i][j] = EMPTY
     #console.log '< returning'
     return
   solve: ->
@@ -148,9 +158,14 @@ class Puzzle
       while cells.length
         index = Math.floor Math.random() * cells.length
         [i,j] = cells[index]
-        other = @clone()
-        other.cell[i][j] = opposite @cell[i][j]
-        if other.solve()
+        opp = opposite @cell[i][j]
+        if @local2x2 i, j, opp
+          necessary = false
+        else
+          other = @clone()
+          other.cell[i][j] = opp
+          necessary = other.solve()
+        if necessary
           ## Clue was necessary; remove from candidate list
           last = cells.pop()
           cells[index] = last if index < cells.length
