@@ -180,6 +180,66 @@ font =
     XXXXXXX
     Xoooooo
   '''
+  P: '''
+    XXXXXXX
+    ooXoooX
+    XXXoXoX
+    ooXoXoX
+    XXXoXoX
+    ooXoXoX
+    XXXoXXX
+    ooXoooo
+    XXXXXXX
+    ooXoooo
+  '''
+  Q: '''
+    XXXXXXX
+    XoooooX
+    XoXXXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoooX
+    XoXXXXX
+    XoooooX
+    XXXXXoX
+    ooooooX
+  '''
+  R: '''
+    XXXXXXX
+    ooXoooX
+    XXXoXoX
+    ooXoXXX
+    XXXoXoo
+    ooXoXXX
+    XXXoXoX
+    ooXoXoX
+    XXXoXoX
+    ooXoooo
+  '''
+  S: '''
+    XXXXXXX
+    XoooooX
+    XoXXXXX
+    Xoooooo
+    XXXXXXX
+    ooooooX
+    XXXXXoX
+    XoooooX
+    XXXXXXX
+    Xoooooo
+  '''
+  T: '''
+    XXXXXXX
+    XoXoXoX
+    XoXoXoX
+    ooXoXoo
+    XXXoXXX
+    ooXoXoo
+    XXXoXXX
+    ooXoXoo
+    XXXoXXX
+    ooXoooo
+  '''
   U: '''
     XXXoXXX
     XoXoXoX
@@ -189,6 +249,66 @@ font =
     XoXoXoX
     XoXXXoX
     Xoooooo
+    XXXXXXX
+    Xoooooo
+  '''
+  V: '''
+    XXXoXXX
+    XoXoXoX
+    XoXXXoX
+    XooXooX
+    XXoXoXX
+    oXoXoXo
+    XXoXoXX
+    oXoooXo
+    XXXoXXX
+    ooXoooo
+  '''
+  W: '''
+    XoXXXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XoXoXoX
+    XXXoXXX
+    Xoooooo
+  '''
+  X: '''
+    XXXoXXX
+    XoXoXoX
+    XoooooX
+    XXXXXXX
+    oooXooo
+    XXXXXXX
+    XoooooX
+    XoXoXoX
+    XXXoXXX
+    Xoooooo
+  '''
+  Y: '''
+    XXXoXXX
+    XoXoXoX
+    XoXoXoX
+    XoXXXoX
+    XoooooX
+    XXXoXXX
+    ooXoXoo
+    XoXoXoX
+    XXXoXXX
+    ooXoooo
+  '''
+  Z: '''
+    XXXXXXX
+    XoooooX
+    XXXXXoX
+    ooooooX
+    XXXXXXX
+    Xoooooo
+    XoXXXXX
+    XoooooX
     XXXXXXX
     Xoooooo
   '''
