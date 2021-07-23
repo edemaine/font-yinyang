@@ -56,9 +56,9 @@ font =
     XoXXXXX
     XoXoooo
     XoXXXXX
-    XoooooX
+    XoXoooo
     XoXXXXX
-    XoXoooX
+    XoooooX
     XoXXXXX
     Xoooooo
   '''
