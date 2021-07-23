@@ -1,3 +1,7 @@
+# These widths must match the widths in yinyang.styl
+minorWidth = 0.05
+majorWidth = 0.15
+
 EMPTY = 0
 WHITE = 1
 BLACK = 2
@@ -220,5 +224,61 @@ class Puzzle
           break
       break unless cells.length
     @
+
+class Viewer
+  constructor: (@svg, @puzzle, @solution) ->
+    @backgroundRect = @svg.rect @puzzle.ncol, @puzzle.nrow
+    .addClass 'background'
+    @gridGroup = @svg.group()
+    .addClass 'grid'
+    @puzzleGroup = @svg.group()
+    .addClass 'puzzle'
+    @solutionGroup = @svg.group()
+    .addClass 'solution'
+    @drawGrid()
+    @drawPuzzle()
+
+  drawGrid: ->
+    @gridGroup.clear()
+    @backgroundRect.size @puzzle.ncol, @puzzle.nrow
+    for x in [1...@puzzle.ncol]
+      @gridGroup.line x, 0, x, @puzzle.nrow
+    for y in [1...@puzzle.nrow]
+      @gridGroup.line 0, y, @puzzle.ncol, y
+    @gridGroup.rect @puzzle.ncol, @puzzle.nrow
+    .addClass 'border'
+    @svg.viewbox
+      x: 0 - majorWidth/2
+      y: 0 - majorWidth/2
+      width: @puzzle.ncol + majorWidth
+      height: @puzzle.nrow + majorWidth
+
+  drawPuzzle: ->
+    @puzzleGroup.clear()
+    for row, y in @puzzle.cell
+      for cell, x in row
+        continue if cell == EMPTY
+        circle = @puzzleGroup.circle 0.7
+        .center x + 0.5, y + 0.5
+        .addClass cell2char[cell].toUpperCase()
+    undefined
+
+class Solver extends Viewer
+  constructor: (...args) ->
+    super ...args
+    @userGroup = @svg.group()
+    .addClass 'user'
+
+window?.onload = ->
+  if review = document.getElementById 'review'
+    for letter, puzzles of window.review
+      review.appendChild header = document.createElement 'h2'
+      header.innerHTML = letter
+      for puzzle in puzzles
+        review.appendChild div = document.createElement 'div'
+        div.className = 'review'
+        new Viewer SVG().addTo(div), Puzzle.fromAscii puzzle.puzzle
+        div.appendChild caption = document.createElement 'figcaption'
+        caption.innerHTML = "#{puzzle.clues} clues: #{puzzle.black} black, #{puzzle.white} white"
 
 module?.exports = {Puzzle, BLACK, WHITE, EMPTY}

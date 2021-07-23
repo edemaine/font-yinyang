@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Yin-Yang Font Review
+    script(type="text/javascript", src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
+    script(type="text/javascript", src="review-data.js")
+    script(type="text/javascript", src="yinyang.js")
+    style
+      include:stylus yinyang.styl
+    style
+      :stylus
+        .review
+          display: inline-block
+          width: 300px
+  body
+    table.w-100
+      tr
+        td.text-left.align-middle
+          h1 Yin-Yang Font Review
+        td.text-right.align-middle
+          h2 by <a href="https://erikdemaine.org/">Erik&nbsp;Demaine</a> and <a href="http://martindemaine.org">Martin&nbsp;Demaine</a>, 2021
+
+    #review.w-100
