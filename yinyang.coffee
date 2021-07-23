@@ -80,7 +80,7 @@ class Puzzle
   solved: ->
     (not @firstCellMatching EMPTY) and
     not @bad2x2() and
-    (@dfs Array.from @allCells()).count <= 2
+    @dfs().count <= 2
 
   local2x2: (i, j, color) ->
     ###
@@ -103,7 +103,9 @@ class Puzzle
     yield [i+1,j] if i+1 < @nrow
     yield [i,j-1] if j > 0
     yield [i,j+1] if j+1 < @ncol
-  dfs: (roots) ->
+  dfs: (roots = Array.from @allCells()) ->
+    if typeof roots == 'number'
+      roots = Array.from @cellsMatching roots
     cc = {}    # map from coordinates to connected component id
     count = 0  # number of connected components / current component id
     recurse = (i, j, color) =>
@@ -121,7 +123,7 @@ class Puzzle
   isolated: ->
     ## Check for two components of the same color that can't meet up.
     for color in [BLACK, WHITE]
-      {count} = @dfs Array.from @cellsMatching color
+      {count} = @dfs color
       return true if count > 1
     false
   prune: ->

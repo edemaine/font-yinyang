@@ -130,7 +130,7 @@ font =
     XoXXXXX
     XoXoooX
     XoXoXoX
-    XXXoXXX
+    XoXoXXX
     Xoooooo
   '''
   L: '''
@@ -339,6 +339,23 @@ testFont = ->
     .pad()
     test puzzle
 
+checkFont = ->
+  errors = 0
+  error = (...msg) ->
+    errors++
+    console.log ...msg
+  for letter, ascii of font
+    puzzle = Puzzle.fromAscii ascii
+    .pad()
+    console.log "--- #{letter}"
+    #console.log puzzle.toAscii()
+    error "*** 2X2 MISTAKE" if puzzle.bad2x2()
+    white = puzzle.dfs WHITE
+    black = puzzle.dfs BLACK
+    unless white.count == black.count == 1
+      error "*** DISCONNECTED: #{white.count} #{black.count}"
+  process.exit 1 if errors
+
 generateFont = ->
   letters = process.argv[2..]
   unless letters.length
@@ -354,4 +371,5 @@ generateFont = ->
 
       """
 
+checkFont()
 generateFont()
