@@ -17,7 +17,7 @@ for filename in fs.readdirSync dirname
     unless seen[info.puzzle]
       seen[info.puzzle] = true
       puzzles.push info
-  puzzles.sort (a, b) -> a.clues - b.clues
-  review[filename[0]] = puzzles[...3]
+  puzzles.sort (a, b) -> (a.clues - b.clues) * 10000 + (a.black - b.black)
+  review[filename[0]] = puzzles#[...3]
 
 fs.writeFileSync 'review-data.js', "window.review = #{JSON.stringify review};"

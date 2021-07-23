@@ -273,9 +273,11 @@ window?.onload = ->
   if review = document.getElementById 'review'
     for letter, puzzles of window.review
       review.appendChild header = document.createElement 'h2'
-      header.innerHTML = letter
+      header.innerHTML = "#{letter} &mdash; #{puzzles.length} puzzles"
+      review.appendChild container = document.createElement 'div'
+      container.className = 'container'
       for puzzle in puzzles
-        review.appendChild div = document.createElement 'div'
+        container.appendChild div = document.createElement 'div'
         div.className = 'review'
         new Viewer SVG().addTo(div), Puzzle.fromAscii puzzle.puzzle
         div.appendChild caption = document.createElement 'figcaption'
