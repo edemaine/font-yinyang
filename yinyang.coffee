@@ -177,9 +177,11 @@ class Puzzle
   reduceUnique: ->
     loop
       cells = Array.from @filledCells()
+      console.log "reducing from #{cells.length} clues"
       while cells.length
         index = Math.floor Math.random() * cells.length
         [i,j] = cells[index]
+        console.log "testing #{cell2char[@cell[i][j]]} at (#{i}, #{j}) -- #{cells.length} clues remain"
         opp = opposite @cell[i][j]
         if @local2x2 i, j, opp
           necessary = false
@@ -195,7 +197,6 @@ class Puzzle
           ## Clue wasn't necessary: empty it and start search over.
           @cell[i][j] = EMPTY
           break
-      console.log 'reducing'
       console.log @toAscii()
       break unless cells.length
     @

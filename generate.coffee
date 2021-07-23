@@ -1,3 +1,4 @@
+# export NODE_OPTIONS=--max_old_space_size=4096
 fs = require 'fs'
 {Puzzle, BLACK, WHITE} = require './yinyang.coffee'
 
