@@ -356,10 +356,16 @@ checkFont = ->
       error "*** DISCONNECTED: #{white.count} #{black.count}"
   process.exit 1 if errors
 
+randomize = (array) ->
+  for i in [0...array.length]
+    j = Math.floor Math.random() * array.length
+    [array[i], array[j]] = [array[j], array[i]]
+  array
+
 generateFont = ->
   letters = process.argv[2..]
   unless letters.length
-    letters = Object.keys font
+    letters = randomize Object.keys font
   loop
     for letter in letters
       puzzle = Puzzle.fromAscii font[letter]
