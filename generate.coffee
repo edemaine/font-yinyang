@@ -82,7 +82,8 @@ font =
     XoXoooo
     XoXoXXX
     XoXoXoX
-    XoooooX
+    XoXXXoX
+    ooooooX
     XXXXXXX
     Xoooooo
   '''
@@ -174,6 +175,7 @@ font =
     XXXXXXX
     XoooooX
     XoXXXoX
+    XoXoXoX
     XoXoXoX
     XoooXoX
     XXXXXoX
@@ -350,6 +352,7 @@ checkFont = ->
     .pad()
     console.log "--- #{letter}"
     #console.log puzzle.toAscii()
+    error "*** WRONG SIZE #{puzzle.nrow}x#{puzzle.ncol}" unless puzzle.nrow == 11 and puzzle.ncol == 9
     error "*** 2X2 MISTAKE" if puzzle.bad2x2()
     white = puzzle.dfs WHITE
     black = puzzle.dfs BLACK
