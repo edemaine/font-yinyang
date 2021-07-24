@@ -302,10 +302,13 @@ class Player extends Viewer
         @highlight
         .move pt.x, pt.y
         .opacity 0.333
+        if e.buttons and @lastColor?
+          @toggle pt.y, pt.x, @lastColor, true
       else
         @highlight.opacity 0
     @svg.on 'mouseleave', (e) =>
       @highlight.opacity 0
+      @lastColor = undefined
     @svg.mousedown (e) =>
       e.preventDefault() if e.button in [0, 1, 2]
       pt = event2coord e
@@ -322,16 +325,19 @@ class Player extends Viewer
       e.preventDefault()
     @svg.on 'auxclick', (e) =>
       e.preventDefault()
-  toggle: (i, j, color) ->
+  toggle: (i, j, color, force) ->
     if @userCircles[[i,j]]?
       @userCircles[[i,j]].remove()
       delete @userCircles[[i,j]]
     if color
-      @user.cell[i][j] =
-        if @user.cell[i][j] == color
-          EMPTY
-        else
-          color
+      if force
+        @user.cell[i][j] = color
+      else
+        @user.cell[i][j] =
+          if @user.cell[i][j] == color
+            EMPTY
+          else
+            color
     else
       @user.cell[i][j] =
         switch @user.cell[i][j]
@@ -341,10 +347,11 @@ class Player extends Viewer
             WHITE
           when WHITE
             EMPTY
-    if (cell = @user.cell[i][j]) != EMPTY
+    @lastColor = @user.cell[i][j]
+    if @lastColor != EMPTY
       @userCircles[[i,j]] = @userGroup.circle circleDiameter
       .center j + 0.5, i + 0.5
-      .addClass cell2char[cell].toUpperCase()
+      .addClass cell2char[@lastColor].toUpperCase()
     if solved = @user.solved()
       @svg.addClass 'solved'
     else
