@@ -24,8 +24,8 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXoXooooo\noXoXXXXXo\noXoooooXo\noXoXXXXXo\noXoXoXoXo\noXoXoXoXo\noXooooooo"
   },
   "G": {
-    "puzzle": ".........\n.........\n...oooo..\n..o......\n..o..ooo.\n..o.o.X..\n..o.o....\n...o.o...\n.........\noX.o.....",
-    "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXoXooooo\noXoXoXXXo\noXoXoXoXo\noXoooooXo\noXXXXXXXo\noXooooooo"
+    "puzzle": ".........\n..XXXXX..\n.X.....X.\n....XXX..\n..o..ooo.\n..o.o....\n..o...o..\n..o.X.o..\n.o.ooo...\n.........\noXo......",
+    "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXoXooooo\noXoXoXXXo\noXoXoXoXo\noXoXXXoXo\noooooooXo\noXXXXXXXo\noXooooooo"
   },
   "H": {
     "puzzle": ".........\n....o.X..\n..o.oX.X.\n..o.o....\n...o.o...\n..o...o..\n..o.o.o..\n..o.o.o..\n....o....\n.XX.o.X..\noX.......",
@@ -56,8 +56,8 @@ window.font = {
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoooXo\noXoXXoXXo\noXooXooXo\noXXoXXoXo\noXoooXoXo\noXoXoXoXo\noXXXoXXXo\noXooooooo"
   },
   "O": {
-    "puzzle": ".........\n.........\n...ooo...\n..o...o..\n..o.o.o..\n...o..o..\n......o..\n.ooooo...\n.........\noXo......",
-    "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXoXo\noXoXoXoXo\noXoooXoXo\noXXXXXoXo\noooooooXo\noXXXXXXXo\noXooooooo"
+    "puzzle": ".........\n.........\n...ooo...\n..o.X.o..\n..o...o..\n..o.o.o..\n...o..o..\n......o..\n.ooooo...\n.........\noX.o.....",
+    "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXoXo\noXoXoXoXo\noXoXoXoXo\noXoooXoXo\noXXXXXoXo\noooooooXo\noXXXXXXXo\noXooooooo"
   },
   "P": {
     "puzzle": ".........\n.........\n.oo..o...\n....o.o..\n.oo.o.o..\n....o....\n.oo.oX.X.\n....o.X..\n.o.X.ooo.\n..X......\n...X.o...",
