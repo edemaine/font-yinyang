@@ -326,6 +326,10 @@ class Player extends Viewer
       @userCircles[[i,j]] = @userGroup.circle circleDiameter
       .center j + 0.5, i + 0.5
       .addClass cell2char[cell].toUpperCase()
+    if solved = @user.solved()
+      @svg.addClass 'solved'
+    else
+      @svg.removeClass 'solved'
 
 reviewGUI = ->
   review = document.getElementById 'review'
