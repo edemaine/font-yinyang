@@ -76,12 +76,16 @@ class Puzzle
     for ij from @cellsMatching color, negate
       return ij
 
-  bad2x2: ->
+  bad2x2s: ->
     ## Check for violations to 2x2 constraint
     for row, i in @cell when i
       for cell, j in row when j and cell != EMPTY
         if cell == @cell[i-1][j] == @cell[i][j-1] == @cell[i-1][j-1]
-          return true
+          yield [i, j]
+    return
+  bad2x2: ->
+    for bad from @bad2x2s()
+      return true
     false
   solved: ->
     (not @firstCellMatching EMPTY) and
@@ -283,6 +287,9 @@ class Player extends Viewer
   constructor: (...args) ->
     super ...args
     @user = @puzzle.clone()
+    @errorGroup = @svg.group()
+    .addClass 'error'
+    .insertAfter @backgroundRect
     @userGroup = @svg.group()
     .addClass 'user'
     @userCircles = {}
@@ -352,10 +359,18 @@ class Player extends Viewer
       @userCircles[[i,j]] = @userGroup.circle circleDiameter
       .center j + 0.5, i + 0.5
       .addClass cell2char[@lastColor].toUpperCase()
+
+    @drawErrors()
     if solved = @user.solved()
       @svg.addClass 'solved'
     else
       @svg.removeClass 'solved'
+
+  drawErrors: ->
+    @errorGroup.clear()
+    for [i, j] from @user.bad2x2s()
+      @errorGroup.rect 2, 2
+      .center j, i
 
 reviewGUI = ->
   review = document.getElementById 'review'
