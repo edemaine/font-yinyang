@@ -5,8 +5,9 @@
   "main": "yinyang.js",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.0",
-    "font-webapp": "^0.1.1",
-    "furls": "^0.5.0"
+    "font-webapp": "^0.1.2",
+    "furls": "^0.5.0",
+    "json-stringify-pretty-compact": "^3.0.0"
   },
   "devDependencies": {
     "coffeescript": "^2.5.1",

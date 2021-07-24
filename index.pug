@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Yin-Yang Font
+    script(type="text/javascript", src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
+    script(type="text/javascript", src="node_modules/furls/furls.js")
+    script(type="text/javascript", src="node_modules/font-webapp/font-webapp.js")
+    script(type="text/javascript", src="font.js")
+    script(type="text/javascript", src="yinyang.js")
+    style
+      include:stylus yinyang.styl
+      :stylus
+        .font-puzzle
+          .solution
+            opacity: 0
+        .font-solved
+          .user
+            opacity: 0
+    //#include virtual="../../analytics.html"
+  body
+    table.w-100
+      tr
+        td.text-left.align-middle
+          h1 <a href="./">Yin-Yang Font</a>
+        td.text-right.align-middle
+          h2 by <a href="https://erikdemaine.org/">Erik&nbsp;Demaine</a> and <a href="http://martindemaine.org">Martin&nbsp;Demaine</a>, 2021
+
+    table#data.w-100.noprint
+      tr
+        td
+          label(for="text") Enter text to render:
+          | &nbsp;
+          textarea.align-middle#text(name="text", rows=4, cols=40) text
+        td
+          input#puzzle(type="radio", name="font", value="puzzle", checked)
+          label(for="puzzle") Puzzle&nbsp;font
+          br
+          input#solved(type="radio", name="font", value="solved")
+          label(for="solved") Solved&nbsp;font
+        td
+          button#reset Reset all puzzles
+          p
+            input#connectors(type="checkbox", name="connectors")
+
+    #size.noprint
+
+    p
+
+    #output.w-100
+
+    hr.noprint
+
+    p.noprint.
+      Check out <a href="http://erikdemaine.org/fonts/">other mathematical and
+      puzzle fonts</a>. &bull; Feedback or not working?
+      <A HREF="mailto:edemaine+fonts@mit.edu">Email Erik</A>. &bull;
+      <a href="https://github.com/edemaine/font-yinyang">Source code on GitHub</a>.

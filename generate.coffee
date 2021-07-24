@@ -378,5 +378,8 @@ generateFont = ->
 
       """
 
-checkFont()
-generateFont()
+module?.exports = {font}
+
+if require?.main == module
+  checkFont()
+  generateFont()

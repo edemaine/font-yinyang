@@ -2,6 +2,8 @@
 minorWidth = 0.05
 majorWidth = 0.15
 
+circleDiameter = 0.7
+
 EMPTY = 0
 WHITE = 1
 BLACK = 2
@@ -238,6 +240,7 @@ class Viewer
     .addClass 'solution'
     @drawGrid()
     @drawPuzzle()
+    @drawSolution()
 
   drawGrid: ->
     @gridGroup.clear()
@@ -259,7 +262,19 @@ class Viewer
     for row, y in @puzzle.cell
       for cell, x in row
         continue if cell == EMPTY
-        circle = @puzzleGroup.circle 0.7
+        circle = @puzzleGroup.circle circleDiameter
+        .center x + 0.5, y + 0.5
+        .addClass cell2char[cell].toUpperCase()
+    undefined
+
+  drawSolution: ->
+    @solutionGroup.clear()
+    return unless @solution?
+    for row, y in @solution.cell
+      for cell, x in row
+        continue if cell == EMPTY
+        continue unless @puzzle.cell[y][x] == EMPTY
+        circle = @solutionGroup.circle circleDiameter
         .center x + 0.5, y + 0.5
         .addClass cell2char[cell].toUpperCase()
     undefined
@@ -270,18 +285,75 @@ class Solver extends Viewer
     @userGroup = @svg.group()
     .addClass 'user'
 
-window?.onload = ->
-  if review = document.getElementById 'review'
-    for letter, puzzles of window.review
-      review.appendChild header = document.createElement 'h2'
-      header.innerHTML = "#{letter} &mdash; #{puzzles.length} puzzles"
-      review.appendChild container = document.createElement 'div'
-      container.className = 'container'
-      for puzzle in puzzles
-        container.appendChild div = document.createElement 'div'
-        div.className = 'review'
-        new Viewer SVG().addTo(div), Puzzle.fromAscii puzzle.puzzle
-        div.appendChild caption = document.createElement 'figcaption'
+reviewGUI = ->
+  review = document.getElementById 'review'
+  selection = {}
+  solution = {}
+  for letter, puzzles of window.review
+    review.appendChild header = document.createElement 'h2'
+    header.innerHTML = "#{letter} &mdash; #{puzzles.length} puzzles"
+    review.appendChild container = document.createElement 'div'
+    container.className = 'container'
+    for puzzle in puzzles
+      container.appendChild div = document.createElement 'div'
+      div.className = 'review'
+      new Viewer SVG().addTo(div), Puzzle.fromAscii puzzle.puzzle
+      div.appendChild caption = document.createElement 'figcaption'
+      if puzzle.solution
+        solution[letter] = puzzle.puzzle
+        caption.innerHTML = 'Solution'
+        div.classList.add 'solution'
+      else
         caption.innerHTML = "#{puzzle.clues} clues: #{puzzle.black} black, #{puzzle.white} white"
+        div.addEventListener 'click', do (letter, div, puzzle) -> ->
+          container.querySelectorAll('.selected').forEach (el) ->
+            el.classList.remove 'selected'
+          div.classList.add 'selected'
+          selection[letter] = puzzle.puzzle
+  document.getElementById('downloadFont').addEventListener 'click', ->
+    out = {}
+    for letter of window.review
+      continue unless solution[letter]? and selection[letter]?
+      out[letter] =
+        puzzle: selection[letter]
+        solution: solution[letter]
+    FontWebapp.downloadFile 'font.js', """
+      window.font = #{window.stringify(out)};
+
+    """, 'text/javascript'
+
+fontGUI = ->
+  symbolCache = {}
+  app = new FontWebappHTML
+    root: '#output'
+    sizeSlider: '#size'
+    charWidth: 225
+    charPadding: 5
+    charKern: 0
+    lineKern: 22.5
+    spaceWidth: 112.5
+    shouldRender: (changed) ->
+      changed.text
+    renderChar: (char, state, parent) ->
+      char = char.toUpperCase()
+      letter = window.font[char]
+      return unless letter?
+      symbolCache[char] ?= [
+        Puzzle.fromAscii letter.puzzle
+        Puzzle.fromAscii letter.solution
+      ]
+      svg = SVG().addTo parent
+      new Viewer svg, ...symbolCache[char]
+    linkIdenticalChars: (glyphs) ->
+      glyph.linked = glyphs for glyph in glyphs
+
+  document.getElementById('reset').addEventListener 'click', ->
+    app.render()
+
+window?.onload = ->
+  if document.getElementById 'review'
+    reviewGUI()
+  else if review = document.getElementById 'output'
+    fontGUI()
 
 module?.exports = {Puzzle, BLACK, WHITE, EMPTY}

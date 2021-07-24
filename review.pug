@@ -4,11 +4,16 @@ html
     meta(charset="utf-8")
     title Yin-Yang Font Review
     script(type="text/javascript", src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
+    script(type="text/javascript", src="node_modules/font-webapp/font-webapp.js")
+    script(type="text/javascript").
+      module = {};
+    script(type="text/javascript", src="node_modules/json-stringify-pretty-compact/index.js")
+    script(type="text/javascript").
+      stringify = module.exports
     script(type="text/javascript", src="review-data.js")
     script(type="text/javascript", src="yinyang.js")
     style
       include:stylus yinyang.styl
-    style
       :stylus
         .container
           overflow-x: auto
@@ -16,6 +21,9 @@ html
         .review
           display: inline-block
           width: 300px
+          border: 5px transparent solid
+          &.selected
+            border-color: purple
   body
     table.w-100
       tr
@@ -25,3 +33,5 @@ html
           h2 by <a href="https://erikdemaine.org/">Erik&nbsp;Demaine</a> and <a href="http://martindemaine.org">Martin&nbsp;Demaine</a>, 2021
 
     #review.w-100
+
+    button#downloadFont Download Font
