@@ -18,7 +18,7 @@ cell2char = {}
 do -> cell2char[k] = c for c, k of char2cell
 
 class Puzzle
-  constructor: (@cell) ->
+  constructor: (@cell = []) ->
     @nrow = @cell.length
     @ncol = @cell[0].length
   clone: ->
@@ -262,7 +262,7 @@ class Viewer
     for row, y in @puzzle.cell
       for cell, x in row
         continue if cell == EMPTY
-        circle = @puzzleGroup.circle circleDiameter
+        @puzzleGroup.circle circleDiameter
         .center x + 0.5, y + 0.5
         .addClass cell2char[cell].toUpperCase()
     undefined
@@ -274,16 +274,58 @@ class Viewer
       for cell, x in row
         continue if cell == EMPTY
         continue unless @puzzle.cell[y][x] == EMPTY
-        circle = @solutionGroup.circle circleDiameter
+        @solutionGroup.circle circleDiameter
         .center x + 0.5, y + 0.5
         .addClass cell2char[cell].toUpperCase()
     undefined
 
-class Solver extends Viewer
+class Player extends Viewer
   constructor: (...args) ->
     super ...args
+    @user = @puzzle.clone()
     @userGroup = @svg.group()
     .addClass 'user'
+    @userCircles = {}
+    @highlight = @svg.rect 1, 1
+    .addClass 'target'
+    .opacity 0
+    event2coord = (e) =>
+      pt = @svg.point e.clientX, e.clientY
+      pt.x = Math.floor pt.x
+      pt.y = Math.floor pt.y
+      return unless 0 <= pt.x < @puzzle.ncol and 0 <= pt.y < @puzzle.nrow
+      return unless @puzzle.cell[pt.y][pt.x] == EMPTY
+      pt
+    @svg.mousemove (e) =>
+      pt = event2coord e
+      if pt?
+        @highlight
+        .move pt.x, pt.y
+        .opacity 0.333
+      else
+        @highlight.opacity 0
+    @svg.on 'mouseleave', (e) =>
+      @highlight.opacity 0
+    @svg.click (e) =>
+      pt = event2coord e
+      return unless pt?
+      @toggle pt.y, pt.x
+  toggle: (i, j) ->
+    if @userCircles[[i,j]]?
+      @userCircles[[i,j]].remove()
+      delete @userCircles[[i,j]]
+    @user.cell[i][j] =
+      switch @user.cell[i][j]
+        when EMPTY
+          BLACK
+        when BLACK
+          WHITE
+        when WHITE
+          EMPTY
+    if (cell = @user.cell[i][j]) != EMPTY
+      @userCircles[[i,j]] = @userGroup.circle circleDiameter
+      .center j + 0.5, i + 0.5
+      .addClass cell2char[cell].toUpperCase()
 
 reviewGUI = ->
   review = document.getElementById 'review'
@@ -345,7 +387,7 @@ fontGUI = ->
         Puzzle.fromAscii letter.solution
       ]
       svg = SVG().addTo parent
-      new Viewer svg, ...symbolCache[char]
+      new Player svg, ...symbolCache[char]
     linkIdenticalChars: (glyphs) ->
       glyph.linked = glyphs for glyph in glyphs
 

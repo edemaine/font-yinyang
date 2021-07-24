@@ -23,6 +23,7 @@ exports.build = build = gulp.series pug, coffee
 ## npm run watch / npx gulp watch: continuously update above
 exports.watch = watch = ->
   gulp.watch '*.pug', pug
+  gulp.watch '*.styl', pug
   gulp.watch 'yinyang.coffee', coffee
 
 exports.default = gulp.parallel coffee, pug
