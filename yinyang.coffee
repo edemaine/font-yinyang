@@ -292,6 +292,8 @@ class Player extends Viewer
     .insertAfter @backgroundRect
     @userGroup = @svg.group()
     .addClass 'user'
+    @dashGroup = @svg.group()
+    .addClass 'dash'
     @userCircles = {}
     @highlight = @svg.rect 1, 1
     .addClass 'target'
@@ -334,7 +336,8 @@ class Player extends Viewer
       e.preventDefault()
   toggle: (i, j, color, force) ->
     if @userCircles[[i,j]]?
-      @userCircles[[i,j]].remove()
+      for circle in @userCircles[[i,j]]
+        circle.remove()
       delete @userCircles[[i,j]]
     if color
       if force
@@ -356,9 +359,11 @@ class Player extends Viewer
             EMPTY
     @lastColor = @user.cell[i][j]
     if @lastColor != EMPTY
-      @userCircles[[i,j]] = @userGroup.circle circleDiameter
-      .center j + 0.5, i + 0.5
-      .addClass cell2char[@lastColor].toUpperCase()
+      @userCircles[[i,j]] =
+        for group in [@userGroup, @dashGroup]
+          group.circle circleDiameter
+          .center j + 0.5, i + 0.5
+          .addClass cell2char[@lastColor].toUpperCase()
 
     @drawErrors()
     if solved = @user.solved()
