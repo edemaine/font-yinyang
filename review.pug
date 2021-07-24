@@ -11,6 +11,8 @@ html
     script(type="text/javascript").
       stringify = module.exports
     script(type="text/javascript", src="review-data.js")
+    // If existing font selection exists, load it
+    script(type="text/javascript", src="font.js")
     script(type="text/javascript", src="yinyang.js")
     style
       include:stylus yinyang.styl

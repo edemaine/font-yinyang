@@ -305,11 +305,13 @@ reviewGUI = ->
         div.classList.add 'solution'
       else
         caption.innerHTML = "#{puzzle.clues} clues: #{puzzle.black} black, #{puzzle.white} white"
-        div.addEventListener 'click', do (container, letter, div, puzzle) -> ->
-          container.querySelectorAll('.selected').forEach (el) ->
-            el.classList.remove 'selected'
-          div.classList.add 'selected'
-          selection[letter] = puzzle.puzzle
+        div.addEventListener 'click', click =
+          do (container, letter, div, puzzle) -> ->
+            container.querySelectorAll('.selected').forEach (el) ->
+              el.classList.remove 'selected'
+            div.classList.add 'selected'
+            selection[letter] = puzzle.puzzle
+        click() if window.font?[letter]?.puzzle == puzzle.puzzle
   document.getElementById('downloadFont').addEventListener 'click', ->
     out = {}
     for letter of window.review
