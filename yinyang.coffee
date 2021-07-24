@@ -306,22 +306,41 @@ class Player extends Viewer
         @highlight.opacity 0
     @svg.on 'mouseleave', (e) =>
       @highlight.opacity 0
-    @svg.click (e) =>
+    @svg.mousedown (e) =>
+      e.preventDefault() if e.button in [0, 1, 2]
       pt = event2coord e
       return unless pt?
-      @toggle pt.y, pt.x
-  toggle: (i, j) ->
+      @toggle pt.y, pt.x,
+        switch e.button
+          when 0  # left click
+            undefined  # => cycle through 3 options
+          when 1  # middle click
+            BLACK
+          when 2  # right click
+            WHITE
+    @svg.on 'contextmenu', (e) =>
+      e.preventDefault()
+    @svg.on 'auxclick', (e) =>
+      e.preventDefault()
+  toggle: (i, j, color) ->
     if @userCircles[[i,j]]?
       @userCircles[[i,j]].remove()
       delete @userCircles[[i,j]]
-    @user.cell[i][j] =
-      switch @user.cell[i][j]
-        when EMPTY
-          BLACK
-        when BLACK
-          WHITE
-        when WHITE
+    if color
+      @user.cell[i][j] =
+        if @user.cell[i][j] == color
           EMPTY
+        else
+          color
+    else
+      @user.cell[i][j] =
+        switch @user.cell[i][j]
+          when EMPTY
+            BLACK
+          when BLACK
+            WHITE
+          when WHITE
+            EMPTY
     if (cell = @user.cell[i][j]) != EMPTY
       @userCircles[[i,j]] = @userGroup.circle circleDiameter
       .center j + 0.5, i + 0.5
