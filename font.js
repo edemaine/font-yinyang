@@ -4,7 +4,7 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXoXo\noXoXoooXo\noXoXXXXXo\noXoooooXo\noXoXoXoXo\noXoXoXoXo\noXXXoXXXo\noXooooooo"
   },
   "B": {
-    "puzzle": ".........\n..X......\n...X.o...\n..X.o.o..\n.oo.o....\n.....ooo.\n.oo.o....\n....o.o..\n.oo..o...\n.........\noXo......",
+    "puzzle": ".........\n.........\n.o.X.o...\n....o.o..\n.o.Xo....\n.....ooo.\n.o.Xo.X..\n....o....\n.oo..o...\n.........\noXo......",
     "solution": "ooooooooo\noXXXXXXXo\noooXoooXo\noXXXoXoXo\noooXoXXXo\noXXXooooo\noooXoXXXo\noXXXoXoXo\noooXoooXo\noXXXXXXXo\noXooooooo"
   },
   "C": {
@@ -20,7 +20,7 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXoXooooo\noXoXXXXXo\noXoXooooo\noXoXXXXXo\noXoooooXo\noXoXXXXXo\noXooooooo"
   },
   "F": {
-    "puzzle": ".........\n.........\n...oooo..\n..o......\n..o.oooo.\n..o......\n...ooo.X.\n..o...X..\n..o.oX.X.\n..o.o....\noXo......",
+    "puzzle": ".........\n.........\n...oooo..\n..o......\n..oX.ooo.\n..o..XX..\n...o...X.\n..o.X.X..\n..o......\n..o.o.o..\noXo......",
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXoXooooo\noXoXXXXXo\noXoooooXo\noXoXXXXXo\noXoXoXoXo\noXoXoXoXo\noXooooooo"
   },
   "G": {
@@ -28,7 +28,7 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXoXooooo\noXoXoXXXo\noXoXoXoXo\noXoXXXoXo\noooooooXo\noXXXXXXXo\noXooooooo"
   },
   "H": {
-    "puzzle": ".........\n....o.X..\n..o.oX.X.\n..o.o....\n...o.o...\n..o...o..\n..o.o.o..\n..o.o.o..\n....o....\n.XX.o.X..\noX.......",
+    "puzzle": ".........\n..X.o.X..\n.X.XoX.X.\n....o....\n...o.oo..\n..o.X.o..\n..o...o..\n..o.o.o..\n....o.o..\n.XX.o....\noX.......",
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoXoXo\noXoooooXo\noXoXXXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXXXoXXXo\noXooooooo"
   },
   "I": {
@@ -52,7 +52,7 @@ window.font = {
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXXXoXo\noXooooooo"
   },
   "N": {
-    "puzzle": ".........\n..X.o....\n.X.Xo.o..\n.X.X.....\n.X...o...\n.X..Xo...\n..X..Xo..\n.X...Xo..\n.X...Xo..\n..X......\noX.o.....",
+    "puzzle": ".........\n..X.o.X..\n....o....\n..o.oo...\n..o..o...\n.........\n...o..o..\n...o..o..\n..o.o....\n....o.X..\noXo......",
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoooXo\noXoXXoXXo\noXooXooXo\noXXoXXoXo\noXoooXoXo\noXoXoXoXo\noXXXoXXXo\noXooooooo"
   },
   "O": {
@@ -68,7 +68,7 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoooXo\noXoXXXXXo\noXoooooXo\noXXXXXoXo\noooooooXo"
   },
   "R": {
-    "puzzle": ".........\n..X.XXX..\n...X.o.X.\n..X....X.\n.o.X..X..\n.....X.o.\n.o.X.....\n..X..Xo..\n...X..o..\n..X.o.o..\n...Xo....",
+    "puzzle": ".........\n.........\n.oo..o...\n....o....\n.oo.o.X..\n..X.o.oo.\n...Xo....\n..X.o.o..\n.oo.o.o..\n....o.o..\n.o.Xo....",
     "solution": "ooooooooo\noXXXXXXXo\noooXoooXo\noXXXoXoXo\noooXoXXXo\noXXXoXooo\noooXoXXXo\noXXXoXoXo\noooXoXoXo\noXXXoXoXo\noooXooooo"
   },
   "S": {
@@ -76,12 +76,16 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXXXo\noXooooooo\noXXXXXXXo\noooooooXo\noXXXXXoXo\noXoooooXo\noXXXXXXXo\noXooooooo"
   },
   "T": {
-    "puzzle": ".........\n..X.X.X..\n.X.X.X.X.\n...X.X.X.\n.o.X.X...\n......X..\n.o.X.X...\n......X..\n.o.X.X...\n......X..\n..oX.....",
+    "puzzle": ".........\n..X...X..\n....o....\n..o.o.o..\n.o..o..o.\n....o....\n.oo.oX.o.\n..X.o.X..\n...XoX...\n..X.o.X..\n...X.o...",
     "solution": "ooooooooo\noXXXXXXXo\noXoXoXoXo\noXoXoXoXo\noooXoXooo\noXXXoXXXo\noooXoXooo\noXXXoXXXo\noooXoXooo\noXXXoXXXo\noooXooooo"
   },
   "U": {
     "puzzle": ".........\n..X.o....\n.X.X..o..\n.X.X.Xo..\n...X.Xo..\n..oX.Xo..\n..oX.Xo..\n..o.X.o..\n...ooo.o.\n.........\noXo......",
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXXXoXo\noXooooooo\noXXXXXXXo\noXooooooo"
+  },
+  "V": {
+    "puzzle": ".........\n..X...X..\n.X.X.X...\n.X....o..\n.X..X....\n....Xo...\n.o...oX..\n...o.o...\n..Xo...o.\n...Xo....\n...Xo....",
+    "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXXXoXo\noXooXooXo\noXXoXoXXo\nooXoXoXoo\noXXoXoXXo\nooXoooXoo\noXXXoXXXo\noooXooooo"
   },
   "W": {
     "puzzle": ".........\n..o.X.o..\n..o...o..\n..o.o.o..\n..o.o.o..\n..o.o.o..\n..o.o....\n..o.oX.X.\n..o.oX.X.\n....o.X..\noXo......",
