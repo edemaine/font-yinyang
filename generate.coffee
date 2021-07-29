@@ -330,10 +330,11 @@ test = (puzzle) ->
 
 testABC = ->
   puzzle = Puzzle.fromAscii font.A
-  .padLeft()
-  .concat (Puzzle.fromAscii font.B).padLeft()
-  .concat (Puzzle.fromAscii font.C).padLeft()
+  .padLeftTop()
+  .concat (Puzzle.fromAscii font.B).padLeftTop()
+  .concat (Puzzle.fromAscii font.C).padLeftTop()
   .padRight()
+  .padBottom BLACK
   test puzzle
 
 testFont = ->
@@ -386,3 +387,4 @@ module?.exports = {font}
 if require?.main == module
   checkFont()
   generateFont()
+  #testABC()

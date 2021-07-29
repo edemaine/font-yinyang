@@ -38,24 +38,29 @@ class Puzzle
         cell2char[cell]
       ).join ''
     ).join '\n'
-  padLeft: ->
-    ## Pad white border around top and left sides, as in font
+  padLeftTop: (color = WHITE) ->
+    ## Pad border around top and left sides, as in font
     new @constructor (
-      [WHITE for j in [0...@ncol+1]]
+      [color for j in [0...@ncol+1]]
       .concat (
         for row in @cell
-          [WHITE, ...row]
+          [color, ...row]
       )
     )
-  padRight: ->
-    ## Pad white border around right side, as in font
+  padRight: (color = WHITE) ->
+    ## Pad border around right side, as in font
     new @constructor (
       for row in @cell
-        [...row, WHITE]
+        [...row, color]
     )
   pad: ->
     ## Pad white border around top and sides, as in single letter
-    @padLeft().padRight()
+    @padLeftTop().padRight()
+  padBottom: (color = WHITE) ->
+    ## Pad border around bottom side
+    new @constructor (
+      [...row] for row in @cell
+    ).concat [color for j in [0...@ncol]]
   concat: (other) ->
     new @constructor (
       for row, i in @cell
