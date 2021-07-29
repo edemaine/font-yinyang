@@ -94,8 +94,8 @@ class Puzzle
 
   local2x2: (i, j, color) ->
     ###
-    Check for local violation to 2x2 constraint if we set cell (i,j)
-    to specified color.
+    Check for local violation to 2x2 constraint,
+    if we set cell (i,j) to specified color.
     ###
     if i > 0 and color == @cell[i-1][j]
       if j > 0
@@ -107,6 +107,23 @@ class Puzzle
         return true if color == @cell[i][j-1] == @cell[i+1][j-1]
       if j+1 < @ncol
         return true if color == @cell[i][j+1] == @cell[i+1][j+1]
+    false
+  local2x2alt: (i, j, color) ->
+    ###
+    Check for local violation to lemma that no 2x2 square has alternating
+    colors, if we set cell (i,j) to specified color.
+    ###
+    opp = opposite color
+    if i > 0 and opp == @cell[i-1][j]
+      if j > 0
+        return true if opp == @cell[i][j-1] and color == @cell[i-1][j-1]
+      if j+1 < @ncol
+        return true if opp == @cell[i][j+1] and color == @cell[i-1][j+1]
+    if i+1 < @nrow and opp == @cell[i+1][j]
+      if j > 0
+        return true if opp == @cell[i][j-1] and color == @cell[i+1][j-1]
+      if j+1 < @ncol
+        return true if opp == @cell[i][j+1] and color == @cell[i+1][j+1]
     false
   neighbors: (i,j) ->
     yield [i-1,j] if i > 0
@@ -153,13 +170,13 @@ class Puzzle
       #console.log "INCORRECT SOLUTION" unless @solved()
       yield @
       return
-    ## Check for forced cells via 2x2 rule
+    ## Check for forced cells via 2x2 rules
     for ij in cells
       [i, j] = ij
       for color in [BLACK, WHITE]
-        if @local2x2 i, j, color
+        if @local2x2(i, j, color) or @local2x2alt(i, j, color)
           opp = opposite color
-          return if color == BLACK and @local2x2 i, j, opp
+          return if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
           @cell[i][j] = opp
           yield from @solutions()
           @cell[i][j] = EMPTY
@@ -189,7 +206,7 @@ class Puzzle
         [i,j] = cells[index]
         console.log "testing #{cell2char[@cell[i][j]]} at (#{i}, #{j}) -- #{cells.length} clues remain"
         opp = opposite @cell[i][j]
-        if @local2x2 i, j, opp
+        if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
           necessary = false
         else
           other = @clone()
@@ -215,7 +232,7 @@ class Puzzle
         old = @cell[i][j]
         opp = opposite old
         necessary = true
-        if @local2x2 i, j, opp
+        if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
           necessary = false
         else
           @cell[i][j] = opp
