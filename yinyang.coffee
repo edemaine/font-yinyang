@@ -189,40 +189,43 @@ class Puzzle
     * Array of [i, j, c]: empty cells (i, j) must in fact be the color c
     ###
     boundary = @boundaryCells()
-    ## Count the number of black/white/empty circles on the boundary
+    ## Count the number of black/white/empty circles on the boundary,
+    ## and alternations between black and white (not counting wraparound).
     num =
       [BLACK]: 0
       [WHITE]: 0
       [EMPTY]: 0
+    current = null
+    alt = 0
     for [i, j] in boundary
-      num[@cell[i][j]]++
+      color = @cell[i][j]
+      num[color]++
+      unless color == EMPTY
+        unless color == current
+          alt++ if current?
+          current = color
     ## Ensure there are both black and white colors on the boundary
     return unless num[BLACK] and num[WHITE]
     ## Check for four alternating groups => puzzle unsolvable
-    return false if num[BLACK] > 1 and num[WHITE] > 1
+    return false if alt > 2
     ## Check for something to do
     return if num[EMPTY] == 0
-    ## Ensure and find the color with multiple instances
-    ## (at most one such color by alternating check above).
-    if num[BLACK] > 1
-      color = BLACK
-    else if num[WHITE] > 1
-      color = WHITE
-    else
-      return
-    opp = opposite color
-    ## Find the unique opposite color, and split the boundary there.
-    k = boundary.findIndex ([i, j]) => @cell[i][j] == opp
-    console.assert k >= 0
-    boundary = boundary[k+1..].concat boundary[...k]
-    ## Find longest (circular) interval of color
-    k = boundary.findIndex ([i, j]) => @cell[i][j] == color
-    console.assert k >= 0
-    boundary = boundary[k..]
-    isEmpty = ([i, j]) => @cell[i][j] == EMPTY
-    boundary.pop() while isEmpty boundary[boundary.length-1]
-    ## Check for empty colors in the interval
-    empty = ([i, j, color] for [i, j] in boundary when @cell[i][j] == EMPTY)
+    ## Check each color with multiple instances.
+    empty = []
+    for color in [BLACK, WHITE] when num[color] > 1
+      opp = opposite color
+      ## Find some opposite color, and split the boundary there.
+      k = boundary.findIndex ([i, j]) => @cell[i][j] == opp
+      console.assert k >= 0, 'boundary no opposite color'
+      cbound = boundary[k+1..].concat boundary[...k]
+      ## Find longest (circular) interval of color
+      k = cbound.findIndex ([i, j]) => @cell[i][j] == color
+      console.assert k >= 0, 'boundary no color'
+      cbound = cbound[k..]
+      isntColor = ([i, j]) => @cell[i][j] != color
+      cbound.pop() while isntColor cbound[cbound.length-1]
+      ## Check for empty colors in the interval
+      empty.push ...([i, j, color] for [i, j] in cbound when @cell[i][j] == EMPTY)
     return unless empty.length
     empty
 
@@ -232,7 +235,7 @@ class Puzzle
     into each solution.  Clone each result to store all solutions.
     ###
     return if @pruneSkip2x2()
-    #console.log @toAscii()
+    #console.log @toAscii(); console.log()
     cells = Array.from @cellsMatching EMPTY
     ## Filled-in puzzle => solution!
     unless cells.length
