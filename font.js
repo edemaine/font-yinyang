@@ -1,6 +1,6 @@
 window.font = {
   "A": {
-    "puzzle": ".........\n.........\n...ooo...\n..o...o..\n..o.oo...\n..o......\n...o.o...\n..o.o.o..\n..o.o.o..\n....o....\noXo......",
+    "puzzle": ".........\n.........\n...ooo...\n..o...o..\n..oX.o...\n..o......\n...o.o...\n..o.o.o..\n....o....\n..XXo.X..\noX.......",
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXoXo\noXoXoooXo\noXoXXXXXo\noXoooooXo\noXoXoXoXo\noXoXoXoXo\noXXXoXXXo\noXooooooo"
   },
   "B": {
@@ -84,7 +84,7 @@ window.font = {
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXXXoXo\noXooooooo\noXXXXXXXo\noXooooooo"
   },
   "V": {
-    "puzzle": ".........\n..X...X..\n.X.X.X...\n.X....o..\n.X..X....\n....Xo...\n.o...oX..\n...o.o...\n..Xo...o.\n...Xo....\n...Xo....",
+    "puzzle": ".........\n....o....\n..o...o..\no.o...o..\n.........\n...o.o...\n.o.o.o.o.\n...o.o...\n.o....X..\n....oX...\n...X.o...",
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXXXoXo\noXooXooXo\noXXoXoXXo\nooXoXoXoo\noXXoXoXXo\nooXoooXoo\noXXXoXXXo\noooXooooo"
   },
   "W": {
