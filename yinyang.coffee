@@ -283,6 +283,12 @@ class Puzzle
     ###
     for solution from @solutions()
       return solution
+  uniqueSolution: ->
+    count = 0
+    for solution from @solutions()
+      count++
+      return false if count > 1
+    count == 1
 
   reduceUnique: ->
     cells = Array.from @filledCells()
