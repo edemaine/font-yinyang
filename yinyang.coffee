@@ -180,8 +180,24 @@ class Puzzle
       {count} = @dfs color
       return true if count > 1
     false
-  pruneSkip2x2: ->
-    @isolated()
+  wouldIsolate: (i, j, color) ->
+    old = @cell[i][j]
+    @cell[i][j] = color
+    isolate = @isolated()
+    @cell[i][j] = old
+    isolate
+  wouldPrune: (i, j, color) ->
+    @local2x2(i, j, color) or
+    @local2x2alt(i, j, color) or
+    @wouldIsolate(i, j, color)
+  wouldPrune1: (i, j, color) ->
+    @local2x2(i, j, color) or
+    @local2x2alt(i, j, color) or
+    @wouldIsolate(i, j, color)
+  wouldPrune2: (i, j, color) ->
+    @wouldIsolate(i, j, color)
+  #pruneSkip2x2: ->
+  #  @isolated()
   prune: ->
     @bad2x2() or
     @alt2x2() or
@@ -239,7 +255,7 @@ class Puzzle
     Generator for all solutions to a puzzle, yielding itself as it modifies
     into each solution.  Clone each result to store all solutions.
     ###
-    return if @pruneSkip2x2()
+    #return if @pruneSkip2x2()
     #console.log @toAscii(); console.log()
     cells = Array.from @cellsMatching EMPTY
     ## Filled-in puzzle => solution!
@@ -257,17 +273,18 @@ class Puzzle
       for [i, j, c] in forced
         @cell[i][j] = EMPTY
       return
-    ## Check for forced cells via 2x2 rules
-    for ij in cells
-      [i, j] = ij
-      for color in [BLACK, WHITE]
-        if @local2x2(i, j, color) or @local2x2alt(i, j, color)
-          opp = opposite color
-          return if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
-          @cell[i][j] = opp
-          yield from @solutions()
-          @cell[i][j] = EMPTY
-          return
+    ## Check for forced cells via 2x2 rules or connectivity pruning
+    for prune in [@wouldPrune1, @wouldPrune2]
+      for ij in cells
+        [i, j] = ij
+        for color in [BLACK, WHITE]
+          if prune.call @, i, j, color
+            opp = opposite color
+            return if @wouldPrune i, j, opp
+            @cell[i][j] = opp
+            yield from @solutions()
+            @cell[i][j] = EMPTY
+            return
     ## Branch on last cell
     for color in [BLACK, WHITE]
       @cell[i][j] = color
