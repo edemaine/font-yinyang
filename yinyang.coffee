@@ -418,7 +418,7 @@ class Player extends Viewer
           when 0  # left click
             undefined  # => cycle through 3 options
           when 1  # middle click
-            BLACK
+            EMPTY
           when 2  # right click
             WHITE
     @svg.on 'contextmenu', (e) =>
@@ -431,7 +431,7 @@ class Player extends Viewer
         circle.remove()
       delete @userCircles[[i,j]]
     if color
-      if force
+      if force or color == EMPTY
         @user.cell[i][j] = color
       else
         @user.cell[i][j] =
