@@ -87,7 +87,7 @@ class Puzzle
     for j in [1...@ncol]
       cells.push [@nrow-1, j]
     for i in [@nrow-2 .. 0]
-      cells.push [i, 0]
+      cells.push [i, @ncol-1]
     for j in [@ncol-2 .. 1]
       cells.push [0, j]
     cells
