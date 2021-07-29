@@ -385,7 +385,7 @@ generateFont = ->
         .padBottom BLACK
       puzzle.reduceUnique()
       fs.appendFileSync "puzzles/#{code}.asc", """
-        ----------------- #{puzzle.numFilledCells()}=#{puzzle.numCellsMatching BLACK}+#{puzzle.numCellsMatching WHITE}
+        ----------------- #{puzzle.numFilledCells()}=#{puzzle.numCellsMatching BLACK}+#{puzzle.numCellsMatching WHITE} branch=#{puzzle.uniqueSolution()}
         #{puzzle.toAscii()}
 
       """

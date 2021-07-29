@@ -21,6 +21,7 @@ class Puzzle
   constructor: (@cell = []) ->
     @nrow = @cell.length
     @ncol = @cell[0].length
+    @branch = 0
   clone: ->
     new @constructor (
       for row in @cell
@@ -286,6 +287,7 @@ class Puzzle
             @cell[i][j] = EMPTY
             return
     ## Branch on last cell
+    @branch++
     for color in [BLACK, WHITE]
       @cell[i][j] = color
       #console.log '> recursing', i, j, cell2char[color]
@@ -301,11 +303,19 @@ class Puzzle
     for solution from @solutions()
       return solution
   uniqueSolution: ->
+    ###
+    Returns false if no solution or solution isn't unique.
+    Otherwise, returns number of branches required to determine unique solution.
+    ###
+    @branch = 0
     count = 0
     for solution from @solutions()
       count++
       return false if count > 1
-    count == 1
+    if count == 1
+      @branch
+    else
+      false
 
   reduceUnique: ->
     cells = Array.from @filledCells()
@@ -518,7 +528,7 @@ reviewGUI = ->
         caption.innerHTML = 'Solution'
         div.classList.add 'solution'
       else
-        caption.innerHTML = "#{puzzle.clues} clues: #{puzzle.black} black, #{puzzle.white} white"
+        caption.innerHTML = "<b>#{puzzle.clues} clues</b>: #{puzzle.black} black, #{puzzle.white} white &mdash; <b>branch #{puzzle.branch}</b>"
         div.addEventListener 'click', click =
           do (container, letter, div, puzzle) -> ->
             container.querySelectorAll('.selected').forEach (el) ->

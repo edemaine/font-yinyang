@@ -14,7 +14,7 @@ for filename in fs.readdirSync dirname
   console.log '*', letter
   pathname = path.join dirname, filename
   asc = fs.readFileSync pathname
-  re = /--+ (\d+)=(\d+)\+(\d+)\n([^-]*)/g
+  re = /--+ (\d+)=(\d+)\+(\d+)(?: branch=(.*))?\n([^-]*)/g
   puzzles = [
     puzzle: Puzzle.fromAscii(font[letter]).pad().toAscii()
     solution: true
@@ -27,20 +27,27 @@ for filename in fs.readdirSync dirname
       clues: parseInt match[1]
       black: parseInt match[2]
       white: parseInt match[3]
-      puzzle: match[4].trimEnd()
+      branch: parseInt match[4]
+      puzzle: match[5].trimEnd()
     unless seen[info.puzzle]?
       if check
         seen[info.puzzle] = Puzzle.fromAscii(info.puzzle).uniqueSolution()
+        #console.log seen[info.puzzle]
       else
         seen[info.puzzle] = true
       puzzles.push info
     if check
-      if seen[info.puzzle]
-        good.push match[0]
-      else
+      if seen[info.puzzle] == false
         console.log 'BAD PUZZLE:'
         console.log info.puzzle
         bad++
+      else if isNaN info.branch
+        info.branch = seen[info.puzzle]
+        good.push match[0].replace /\n/, " branch=#{info.branch}\n"
+        bad++
+      else
+        good.push match[0]
+
   if check and bad
     fs.writeFileSync pathname, good.join ''
   puzzles.sort (a, b) -> (a.clues - b.clues) * 10000 + (a.black - b.black)

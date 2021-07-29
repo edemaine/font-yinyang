@@ -4,7 +4,7 @@ window.font = {
     "solution": "ooooooooo\noXXXXXXXo\noXoooooXo\noXoXXXoXo\noXoXoooXo\noXoXXXXXo\noXoooooXo\noXoXoXoXo\noXoXoXoXo\noXXXoXXXo\noXooooooo"
   },
   "B": {
-    "puzzle": ".........\n.........\n.oo..o...\n....o.o..\n.o.Xo....\n.....ooo.\n.oo.o....\n....o.o..\n.o.X.o...\n..X......\noX.......",
+    "puzzle": ".........\n.........\n.o.X.o...\n....o....\n.o.Xo.X..\n.....ooo.\n.oo.o.X..\n....o....\n.oo..o...\n..X......\noX.......",
     "solution": "ooooooooo\noXXXXXXXo\noooXoooXo\noXXXoXoXo\noooXoXXXo\noXXXooooo\noooXoXXXo\noXXXoXoXo\noooXoooXo\noXXXXXXXo\noXooooooo"
   },
   "C": {
