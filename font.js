@@ -84,7 +84,7 @@ window.font = {
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXoXoXo\noXoXXXoXo\noXooooooo\noXXXXXXXo\noXooooooo"
   },
   "V": {
-    "puzzle": ".........\no.X.o.X..\n.........\n..o...o..\n.........\n...o.o...\n..Xo.o.o.\n...o.o...\n.o....X..\n....o....\n...X.....",
+    "puzzle": ".........\n..X...X..\n.X.X.X...\n.X....o..\n.X..X....\n....Xo...\n.o...oX..\n...o.o...\n..Xo...o.\n...Xo....\n...Xo....",
     "solution": "ooooooooo\noXXXoXXXo\noXoXoXoXo\noXoXXXoXo\noXooXooXo\noXXoXoXXo\nooXoXoXoo\noXXoXoXXo\nooXoooXoo\noXXXoXXXo\noooXooooo"
   },
   "W": {
