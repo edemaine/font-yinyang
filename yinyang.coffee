@@ -75,6 +75,17 @@ class Puzzle
   firstCellMatching: (color, negate) ->
     for ij from @cellsMatching color, negate
       return ij
+  boundaryCells: ->
+    cells = []
+    for i in [0...@nrow]
+      cells.push [i, 0]
+    for j in [1...@ncol]
+      cells.push [@nrow-1, j]
+    for i in [@nrow-2 .. 0]
+      cells.push [i, 0]
+    for j in [@ncol-2 .. 1]
+      cells.push [0, j]
+    cells
 
   bad2x2s: ->
     ## Check for violations to 2x2 constraint
@@ -85,6 +96,17 @@ class Puzzle
     return
   bad2x2: ->
     for bad from @bad2x2s()
+      return true
+    false
+  alt2x2s: ->
+    ## Check for violations to lemma of no alternating 2x2
+    for row, i in @cell when i
+      for cell, j in row when j and cell != EMPTY
+        if cell == @cell[i-1][j-1] and @cell[i-1][j] == @cell[i][j-1] == opposite cell
+          yield [i, j]
+    return
+  alt2x2: ->
+    for alt from @alt2x2s()
       return true
     false
   solved: ->
@@ -153,22 +175,79 @@ class Puzzle
       {count} = @dfs color
       return true if count > 1
     false
-  prune: ->
-    #@bad2x2() or
+  pruneSkip2x2: ->
     @isolated()
+  prune: ->
+    @bad2x2() or
+    @alt2x2() or
+    @isolated()
+  forceBoundary: ->
+    ###
+    Heuristic for coloring boundary circles.  Returns one of:
+    * undefined: nothing learned
+    * false: puzzle is unsolvable
+    * Array of [i, j, c]: empty cells (i, j) must in fact be the color c
+    ###
+    boundary = @boundaryCells()
+    ## Count the number of black/white/empty circles on the boundary
+    num =
+      [BLACK]: 0
+      [WHITE]: 0
+      [EMPTY]: 0
+    for [i, j] in boundary
+      num[@cell[i][j]]++
+    ## Ensure there are both black and white colors on the boundary
+    return unless num[BLACK] and num[WHITE]
+    ## Check for four alternating groups => puzzle unsolvable
+    return false if num[BLACK] > 1 and num[WHITE] > 1
+    ## Check for something to do
+    return if num[EMPTY] == 0
+    ## Ensure and find the color with multiple instances
+    ## (at most one such color by alternating check above).
+    if num[BLACK] > 1
+      color = BLACK
+    else if num[WHITE] > 1
+      color = WHITE
+    else
+      return
+    opp = opposite color
+    ## Find the unique opposite color, and split the boundary there.
+    k = boundary.findIndex ([i, j]) => @cell[i][j] == opp
+    console.assert k >= 0
+    boundary = boundary[k+1..].concat boundary[...k]
+    ## Find longest (circular) interval of color
+    k = boundary.findIndex ([i, j]) => @cell[i][j] == color
+    console.assert k >= 0
+    boundary = boundary[k..]
+    isEmpty = ([i, j]) => @cell[i][j] == EMPTY
+    boundary.pop() while isEmpty boundary[boundary.length-1]
+    ## Check for empty colors in the interval
+    empty = ([i, j, color] for [i, j] in boundary when @cell[i][j] == EMPTY)
+    return unless empty.length
+    empty
 
   solutions: ->
     ###
     Generator for all solutions to a puzzle, yielding itself as it modifies
     into each solution.  Clone each result to store all solutions.
     ###
-    return if @prune()
+    return if @pruneSkip2x2()
     #console.log @toAscii()
     cells = Array.from @cellsMatching EMPTY
     ## Filled-in puzzle => solution!
     unless cells.length
       #console.log "INCORRECT SOLUTION" unless @solved()
       yield @
+      return
+    ## Apply boundary heuristic
+    if (forced = @forceBoundary())?
+      return if forced == false
+      for [i, j, c] in forced
+        @cell[i][j] = c
+      unless @prune()
+        yield from @solutions()
+      for [i, j, c] in forced
+        @cell[i][j] = EMPTY
       return
     ## Check for forced cells via 2x2 rules
     for ij in cells
@@ -236,7 +315,7 @@ class Puzzle
           necessary = false
         else
           @cell[i][j] = opp
-          necessary = false if @prune()
+          necessary = false if @pruneExcept2x2()
           @cell[i][j] = old
         if necessary
           ## Clue was necessary; remove from candidate list
