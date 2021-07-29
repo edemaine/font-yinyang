@@ -277,55 +277,50 @@ class Puzzle
       return solution
 
   reduceUnique: ->
-    loop
-      cells = Array.from @filledCells()
-      console.log "reducing from #{cells.length} clues"
-      while cells.length
-        index = Math.floor Math.random() * cells.length
-        [i,j] = cells[index]
-        console.log "testing #{cell2char[@cell[i][j]]} at (#{i}, #{j}) -- #{cells.length} clues remain"
-        opp = opposite @cell[i][j]
-        if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
-          necessary = false
-        else
-          other = @clone()
-          other.cell[i][j] = opp
-          necessary = other.solve()
-        if necessary
-          ## Clue was necessary; remove from candidate list
-          last = cells.pop()
-          cells[index] = last if index < cells.length
-        else
-          ## Clue wasn't necessary: empty it and start search over.
-          @cell[i][j] = EMPTY
-          break
-      console.log @toAscii()
-      break unless cells.length
+    cells = Array.from @filledCells()
+    console.log "reducing from #{@numFilledCells()} clues"
+    while cells.length
+      ## Extract a candidate cell from the list
+      index = Math.floor Math.random() * cells.length
+      [i,j] = cells[index]
+      last = cells.pop()
+      cells[index] = last if index < cells.length
+      console.log "testing #{cell2char[@cell[i][j]]} at (#{i}, #{j}) -- #{cells.length} clues remain"
+      opp = opposite @cell[i][j]
+      if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
+        necessary = false
+      else
+        other = @clone()
+        other.cell[i][j] = opp
+        necessary = other.solve()
+      unless necessary
+        ## Clue wasn't necessary: empty it and report reduction.
+        @cell[i][j] = EMPTY
+        console.log @toAscii()
+        console.log "reducing from #{@numFilledCells()} clues"
     @
   reducePrune: ->
-    loop
-      cells = Array.from @filledCells()
-      while cells.length
-        index = Math.floor Math.random() * cells.length
-        [i,j] = cells[index]
-        old = @cell[i][j]
-        opp = opposite old
-        necessary = true
-        if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
-          necessary = false
-        else
-          @cell[i][j] = opp
-          necessary = false if @pruneExcept2x2()
-          @cell[i][j] = old
-        if necessary
-          ## Clue was necessary; remove from candidate list
-          last = cells.pop()
-          cells[index] = last if index < cells.length
-        else
-          ## Clue wasn't necessary: empty it and start search over.
-          @cell[i][j] = EMPTY
-          break
-      break unless cells.length
+    cells = Array.from @filledCells()
+    while cells.length
+      index = Math.floor Math.random() * cells.length
+      [i,j] = cells[index]
+      old = @cell[i][j]
+      opp = opposite old
+      necessary = true
+      if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
+        necessary = false
+      else
+        @cell[i][j] = opp
+        necessary = false if @pruneExcept2x2()
+        @cell[i][j] = old
+      if necessary
+        ## Clue was necessary; remove from candidate list
+        last = cells.pop()
+        cells[index] = last if index < cells.length
+      else
+        ## Clue wasn't necessary: empty it and start search over.
+        @cell[i][j] = EMPTY
+        break
     @
 
 class Viewer
