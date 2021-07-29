@@ -368,15 +368,23 @@ randomize = (array) ->
   array
 
 generateFont = ->
-  letters = process.argv[2..]
-  unless letters.length
-    letters = randomize Object.keys font
+  codes = process.argv[2..]
+  unless codes.length
+    codes = randomize Object.keys font
   loop
-    for letter in letters
-      puzzle = Puzzle.fromAscii font[letter]
-      .pad()
+    for code in codes
+      if code.length == 1
+        puzzle = Puzzle.fromAscii font[code]
+        .pad()
+      else
+        puzzle = Puzzle.fromAscii font[code[0]]
+        .padLeftTop()
+        for letter in code[1..]
+          puzzle = puzzle.concat (Puzzle.fromAscii font[letter]).padLeftTop()
+        puzzle = puzzle.padRight()
+        .padBottom BLACK
       puzzle.reduceUnique()
-      fs.appendFileSync "puzzles/#{letter}.asc", """
+      fs.appendFileSync "puzzles/#{code}.asc", """
         ----------------- #{puzzle.numFilledCells()}=#{puzzle.numCellsMatching BLACK}+#{puzzle.numCellsMatching WHITE}
         #{puzzle.toAscii()}
 
