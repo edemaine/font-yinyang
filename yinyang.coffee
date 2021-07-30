@@ -499,7 +499,10 @@ class Player extends Viewer
       e.preventDefault()
     @svg.on 'auxclick', (e) =>
       e.preventDefault()
-  toggle: (i, j, color, force) ->
+  toggle: (...args) ->
+    for copy in @linked ? [@]
+      copy.toggleSelf ...args
+  toggleSelf: (i, j, color, force) ->
     if @userCircles[[i,j]]?
       for circle in @userCircles[[i,j]]
         circle.remove()
