@@ -547,6 +547,10 @@ reviewGUI = ->
       window.font = #{window.stringify(out)};
 
     """, 'text/javascript'
+  document.getElementById('testInput').addEventListener 'input', ->
+    document.getElementById('testOutput').innerHTML = ''
+    new Viewer SVG().addTo('#testOutput'),
+      Puzzle.fromAscii document.getElementById('testInput').value
 
 fontGUI = ->
   symbolCache = {}

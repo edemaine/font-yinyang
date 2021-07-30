@@ -26,6 +26,12 @@ html
           border: 5px transparent solid
           &.selected
             border-color: purple
+        #downloadFont
+          margin: 1em
+          font-size: x-large
+        .test
+          border: solid
+          padding: 1em
   body
     table.w-100
       tr
@@ -37,3 +43,8 @@ html
     #review.w-100
 
     button#downloadFont Download Font
+
+    .test
+      h2 Visualize puzzles/solutions:
+      textarea#testInput(rows="10", cols="80")
+      #testOutput
