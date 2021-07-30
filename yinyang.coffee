@@ -471,7 +471,7 @@ class Player extends Viewer
       for circle in @userCircles[[i,j]]
         circle.remove()
       delete @userCircles[[i,j]]
-    if color
+    if color?
       if force or color == EMPTY
         @user.cell[i][j] = color
       else
