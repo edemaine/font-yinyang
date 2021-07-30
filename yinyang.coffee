@@ -193,8 +193,7 @@ class Puzzle
     @wouldIsolate(i, j, color)
   wouldPrune1: (i, j, color) ->
     @local2x2(i, j, color) or
-    @local2x2alt(i, j, color) or
-    @wouldIsolate(i, j, color)
+    @local2x2alt(i, j, color)
   wouldPrune2: (i, j, color) ->
     @wouldIsolate(i, j, color)
   #pruneSkip2x2: ->
