@@ -81,6 +81,13 @@ class Puzzle
   firstCellMatching: (color, negate) ->
     for ij from @cellsMatching color, negate
       return ij
+  bestEmptyCell: ->
+    @firstCellMatching EMPTY
+    ## Bottom-left empty cell:
+    #for i in [@cell.length-1 .. 0]
+    #  for cell, j in @cell[i]
+    #    if cell == EMPTY
+    #      return [i,j]
   boundaryCells: ->
     cells = []
     for i in [0...@nrow]
@@ -304,7 +311,7 @@ class Puzzle
     #return if @pruneSkip2x2()
     #console.log @toAscii(); console.log()
     ## Filled-in puzzle => potential solution
-    unless (cell = @firstCellMatching EMPTY)?
+    unless (cell = @bestEmptyCell())?
       yield @ if @solved()
       return
     ## Apply boundary, articulation, and 2x2 heuristics
