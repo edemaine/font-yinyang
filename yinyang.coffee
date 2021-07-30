@@ -153,6 +153,16 @@ class Puzzle
       if j+1 < @ncol
         return true if opp == @cell[i][j+1] and color == @cell[i+1][j+1]
     false
+  force2x2: (i, j) ->
+    forced = []
+    for [i, j] from @cellsMatching EMPTY
+      for color in [BLACK, WHITE]
+        if @local2x2(i, j, color) or @local2x2alt(i, j, color)
+          opp = opposite color
+          return false if @local2x2(i, j, opp) or @local2x2alt(i, j, opp)
+          forced.push [i, j, opp]
+    forced if forced.length
+
   neighbors: (i,j) ->
     yield [i-1,j] if i > 0
     yield [i+1,j] if i+1 < @nrow
@@ -175,29 +185,64 @@ class Puzzle
       recurse i, j, @cell[i][j]
       count++
     {cc, count}
+  articulation: (color) ->
+    ###
+    Return an array of articulation points (cut vertices) that are EMPTY,
+    so should receive specified color.  Assumes color+EMPTY is connected.
+    Based on linear-time algorithm from CLRS Problem 22-2, as solved here:
+    https://walkccc.me/CLRS/Chap22/Problems/22-2/
+    ###
+    depth =  {} # map from coordinates to depth
+    low = {}    # map from coordinates to min depth among self and back edges from descendants of this node
+    nonempty = {} # map from coordinates to whether descendant has color
+    articulation = []
+    recurse = (i, j, d) =>
+      depth[[i,j]] = d
+      low[[i,j]] = d
+      cell = @cell[i][j]
+      nonempty[[i,j]] = (cell == color)
+      minLow = (newLow) ->
+        low[[i,j]] = newLow if newLow < low[[i,j]]
+      articulate = false
+      #children = 0
+      for [i2,j2] from @neighbors i, j
+        continue unless @cell[i2][j2] in [color, EMPTY]  # stay within color
+        if depth[[i2,j2]]?  # back or parent edge
+          minLow depth[[i2,j2]]
+        else
+          #children++
+          recurse i2, j2, d+1
+          nonempty[[i,j]] or= nonempty[[i2,j2]]
+          minLow childLow = low[[i2,j2]]
+          ## If some child doesn't have a back pointer above us,
+          ## we are an articulation point.
+          articulate = true if nonempty[[i2,j2]] and childLow >= d
+      articulation.push [i,j] if articulate and cell == EMPTY
+      undefined
+      #children
+    [i, j] = @firstCellMatching color
+    ## Root is an articulation point if it has >= 2 children.
+    ## But we don't need to list this, because it isn't EMPTY.
+    #if 2 <= recurse i, j, 0
+    #  articulation.push [i,j]
+    recurse i, j, 0
+    articulation
+  forceArticulation: ->
+    ###
+    Return [i, j, color] triples for all empty cells forced by
+    articulation point heuristic.
+    ###
+    forced = []
+    for color in [BLACK, WHITE]
+      for [i,j] in @articulation color
+        forced.push [i, j, color]
+    forced if forced.length
   isolated: ->
     ## Check for two components of the same color that can't meet up.
     for color in [BLACK, WHITE]
       {count} = @dfs color
       return true if count > 1
     false
-  wouldIsolate: (i, j, color) ->
-    old = @cell[i][j]
-    @cell[i][j] = color
-    isolate = @isolated()
-    @cell[i][j] = old
-    isolate
-  wouldPrune: (i, j, color) ->
-    @local2x2(i, j, color) or
-    @local2x2alt(i, j, color) or
-    @wouldIsolate(i, j, color)
-  wouldPrune1: (i, j, color) ->
-    @local2x2(i, j, color) or
-    @local2x2alt(i, j, color)
-  wouldPrune2: (i, j, color) ->
-    @wouldIsolate(i, j, color)
-  #pruneSkip2x2: ->
-  #  @isolated()
   prune: ->
     @bad2x2() or
     @alt2x2() or
@@ -257,35 +302,23 @@ class Puzzle
     ###
     #return if @pruneSkip2x2()
     #console.log @toAscii(); console.log()
-    cells = Array.from @cellsMatching EMPTY
     ## Filled-in puzzle => potential solution
-    unless cells.length
-      #console.log "INCORRECT SOLUTION" unless @solved()
+    unless (cell = @firstCellMatching EMPTY)?
       yield @ if @solved()
       return
-    ## Apply boundary heuristic
-    if (forced = @forceBoundary())?
-      return if forced == false
-      for [i, j, c] in forced
-        @cell[i][j] = c
-      unless @prune()
-        yield from @solutions()
-      for [i, j, c] in forced
-        @cell[i][j] = EMPTY
-      return
-    ## Check for forced cells via 2x2 rules or connectivity pruning
-    for prune in [@wouldPrune1, @wouldPrune2]
-      for ij in cells
-        [i, j] = ij
-        for color in [BLACK, WHITE]
-          if prune.call @, i, j, color
-            opp = opposite color
-            return if @wouldPrune i, j, opp
-            @cell[i][j] = opp
-            yield from @solutions()
-            @cell[i][j] = EMPTY
-            return
-    ## Branch on last cell
+    ## Apply boundary, articulation, and 2x2 heuristics
+    for heuristic in [@force2x2, @forceBoundary, @forceArticulation]
+      if (forced = heuristic.call @)?
+        return if forced == false
+        for [i, j, c] in forced
+          @cell[i][j] = c
+        unless @prune()
+          yield from @solutions()
+        for [i, j, c] in forced
+          @cell[i][j] = EMPTY
+        return
+    ## Branch on first cell
+    [i, j] = cell
     @branch++
     for color in [BLACK, WHITE]
       @cell[i][j] = color
