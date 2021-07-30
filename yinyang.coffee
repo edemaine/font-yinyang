@@ -220,12 +220,13 @@ class Puzzle
       articulation.push [i,j] if articulate and cell == EMPTY
       undefined
       #children
-    [i, j] = @firstCellMatching color
-    ## Root is an articulation point if it has >= 2 children.
-    ## But we don't need to list this, because it isn't EMPTY.
-    #if 2 <= recurse i, j, 0
-    #  articulation.push [i,j]
-    recurse i, j, 0
+    if (root = @firstCellMatching color)?
+      [i, j] = root
+      ## Root is an articulation point if it has >= 2 children.
+      ## But we don't need to list this, because it isn't EMPTY.
+      #if 2 <= recurse i, j, 0
+      #  articulation.push [i,j]
+      recurse i, j, 0
     articulation
   forceArticulation: ->
     ###
