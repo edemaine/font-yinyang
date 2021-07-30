@@ -554,8 +554,10 @@ reviewGUI = ->
   selection = {}
   solution = {}
   for letter, puzzles of window.review
+    clues = (puzzle.clues for puzzle in puzzles when not puzzle.solution)
+    branch = (puzzle.branch for puzzle in puzzles when not puzzle.solution)
     review.appendChild header = document.createElement 'h2'
-    header.innerHTML = "#{letter} &mdash; #{puzzles.length} puzzles"
+    header.innerHTML = "#{letter} &mdash; #{puzzles.length} puzzles &mdash; clues [#{Math.min ...clues}, #{Math.max ...clues}], branch [#{Math.min ...branch}, #{Math.max ...branch}]"
     review.appendChild container = document.createElement 'div'
     container.className = 'container'
     for puzzle in puzzles

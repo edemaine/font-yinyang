@@ -74,7 +74,11 @@ for filename in fs.readdirSync dirname
   if bad
     fs.writeFileSync pathname, good.join ''
     console.log "Rewrote #{pathname} with #{bad} bad puzzles out of #{good.length} total puzzles"
-  puzzles.sort (a, b) -> (a.clues - b.clues) * 10000 + (a.black - b.black)
+  M = 10000
+  puzzles.sort (a, b) ->
+    (b.branch - a.branch) * M*M +
+    (a.clues - b.clues) * M +
+    (a.black - b.black)
   review[filename[0]] = puzzles#[...3]
 
 fs.writeFileSync 'review-data.js', "window.review = #{JSON.stringify review};"
