@@ -259,10 +259,10 @@ class Puzzle
     #return if @pruneSkip2x2()
     #console.log @toAscii(); console.log()
     cells = Array.from @cellsMatching EMPTY
-    ## Filled-in puzzle => solution!
+    ## Filled-in puzzle => potential solution
     unless cells.length
       #console.log "INCORRECT SOLUTION" unless @solved()
-      yield @
+      yield @ if @solved()
       return
     ## Apply boundary heuristic
     if (forced = @forceBoundary())?
