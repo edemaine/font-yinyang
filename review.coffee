@@ -48,6 +48,10 @@ for filename in fs.readdirSync dirname
         info.branch = seen[info.puzzle]
         good.push match[0].replace /\n/, " branch=#{info.branch}\n"
         bad++
+      else if info.branch != seen[info.puzzle]
+        info.branch = seen[info.puzzle]
+        good.push match[0].replace /\sbranch=(\d+)\n/, " branch=#{info.branch}\n"
+        bad++
       else
         good.push match[0]
     else if reduce
