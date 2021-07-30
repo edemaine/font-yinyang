@@ -508,6 +508,10 @@ class Player extends Viewer
     for [i, j] from @user.bad2x2s()
       @errorGroup.rect 2, 2
       .center j, i
+    for [i, j] from @user.alt2x2s()
+      @errorGroup.rect 2, 2
+      .center j, i
+      .addClass 'alt'
 
 reviewGUI = ->
   review = document.getElementById 'review'
