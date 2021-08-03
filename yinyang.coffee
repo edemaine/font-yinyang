@@ -636,4 +636,7 @@ window?.onload = ->
   else if review = document.getElementById 'output'
     fontGUI()
 
-module?.exports = {Puzzle, BLACK, WHITE, EMPTY}
+exports = {Puzzle, Viewer, Player, BLACK, WHITE, EMPTY}
+module?.exports = exports
+if window?
+  window[key] = value for key, value of exports
