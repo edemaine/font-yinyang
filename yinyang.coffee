@@ -31,7 +31,8 @@ class Puzzle
     new @ (
       for row in ascii.trimEnd().split '\n'
         for char in row
-          char2cell[char]
+          console.warn "Invalid character #{char}" unless char of char2cell
+          char2cell[char] ? EMPTY
     )
   toAscii: ->
     (for row in @cell
