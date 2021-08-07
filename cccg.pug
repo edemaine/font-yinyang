@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Yin-Yang Font: CCCG Puzzle
+    script(type="text/javascript", src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
+    script(type="text/javascript", src="node_modules/furls/furls.js")
+    script(type="text/javascript", src="node_modules/font-webapp/font-webapp.js")
+    script(type="text/javascript").
+      window.puzzle =
+      //{"clues":145,"black":72,"white":73,"branch":8282,"puzzle":
+      ".................................\n....XXX.o.XXXXX.o.......o.XXXXX..\n.......XoX.....Xo..ooo..oX.....X.\n..o.X..XoX..X..Xo.o.X...oX..XXX..\n..oX..X.oX.X..X.o.oX..X.o....ooo.\n..oX.....X.X......oX......o.o.X..\n..oX..X.oX.X..XXo.oX..X.o.o.o....\n..o.X.oXoX..X..Xo.o.X.o.o.o...o..\n.......XoX.....Xo..ooo...o.ooo...\no.o.XXX.o..XXXX.o.o.....o.XXXXX.o\n...ooooo...ooooo...ooooo.X.......\nX...............................X";
+    script(type="text/javascript", src="yinyang.js")
+    style
+      include:stylus yinyang.styl
+    //#include virtual="../../analytics.html"
+  body
+    table.w-100
+      tr
+        td.text-left.align-middle
+          h1 <a href="./">Yin-Yang Font</a>: CCCG Puzzle</a>
+        td.text-right.align-middle
+          h2 by <a href="https://erikdemaine.org/">Erik&nbsp;Demaine</a> and <a href="http://martindemaine.org">Martin&nbsp;Demaine</a>, 2021
+
+    #puzzle.w-100
+
+    hr.noprint
+
+    p.noprint.
+      Check out <a href="http://erikdemaine.org/fonts/">other mathematical and
+      puzzle fonts</a>. &bull; Feedback or not working?
+      <A HREF="mailto:edemaine+fonts@mit.edu">Email Erik</A>. &bull;
+      <a href="https://github.com/edemaine/font-yinyang">Source code on GitHub</a>.

@@ -635,6 +635,8 @@ window?.onload = ->
     reviewGUI()
   else if review = document.getElementById 'output'
     fontGUI()
+  else if review = document.getElementById 'puzzle'
+    new Player SVG().addTo('#puzzle'), Puzzle.fromAscii window.puzzle
 
 exports = {Puzzle, Viewer, Player, BLACK, WHITE, EMPTY}
 module?.exports = exports
