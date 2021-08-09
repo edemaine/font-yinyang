@@ -479,6 +479,7 @@ class Player extends Viewer
       return unless @puzzle.cell[pt.y][pt.x] == EMPTY
       pt
     @svg.on 'pointermove', (e) =>
+      e.preventDefault()
       pt = event2coord e
       if pt?
         @highlight
@@ -492,7 +493,8 @@ class Player extends Viewer
       @highlight.opacity 0
       @lastColor = undefined
     @svg.on 'pointerdown', (e) =>
-      e.preventDefault() if e.button in [0, 1, 2]
+      e.preventDefault()
+      e.target.setPointerCapture e.pointerId
       pt = event2coord e
       return unless pt?
       @toggle pt.y, pt.x,
@@ -505,7 +507,7 @@ class Player extends Viewer
             EMPTY
           when 5  # pen eraser
             EMPTY
-    for ignore in ['click', 'contextmenu', 'auxclick']
+    for ignore in ['click', 'contextmenu', 'auxclick', 'dragstart', 'touchmove']
       @svg.on ignore, (e) -> e.preventDefault()
   toggle: (...args) ->
     for copy in @linked ? [@]
