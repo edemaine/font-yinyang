@@ -50,6 +50,64 @@ html
     hr.noprint
 
     p.noprint.
+      In a Yin-Yang puzzle, you are given a grid of unit squares, some of
+      which have a black or white circle.  Your goal is to fill in every
+      empty square with either a black or white circle so that the black
+      circles are orthogonally connected together, the white circles are
+      orthogonally connected together, and no 2&nbsp;&times;&nbsp;2 square
+      is all black or all white.
+      Like most pencil-and-paper logic puzzles,
+      <a href="https://erikdemaine.org/papers/YinYang_CCCG2021/">Yin-Yang is NP-complete</a>,
+      meaning that there is no efficient algorithm to solve them,
+      assuming P&nbsp;&ne;&nbsp;NP.
+
+    p.noprint.
+      This typeface features 26 uniquely solvable Yin-Yang puzzles,
+      one for each letter of the alphabet.
+      In the <b>solved font</b>, the black circles form the letter shapes.
+      In the <b>puzzle font</b>, you get a minimal set of clues that uniquely
+      solve to the black circles.
+      You can interactively solve the puzzles by clicking on the blank spaces.
+      Left clicking (or touching) toggles between black, white, and blank.
+      Right clicking acts as an eraser.
+      Middle clicking toggles between black and white, or fills in white.
+      You can drag to paint many circles at once.
+      If you make any local mistakes, they will highlight red:
+      2&nbsp;&times;&nbsp;2 squares that are all the same color
+      (invalid by the rules) or that alternate black/white/black/white
+      (a derived rule because it makes connectivity impossible &mdash;
+      see
+      <a href="https://erikdemaine.org/papers/YinYang_CCCG2021/">our paper</a>).
+
+    p.noprint.
+      We constructed the puzzles by greedily removing random clues that were
+      found to be redundant (preserved unique solvability) via brute force.
+      We repeated this process several times and then took the
+      &ldquo;hardest&rdquo; puzzle, in particular measuring the number of
+      clues and the total number of branches in the uniqueness verification.
+      Some puzzles are harder than others.
+      The hardest is probably V, followed by (in no particular order)
+      A, B, H, I, L, N, P, T, U, W, and X.
+      The easiest puzzles (which should be solvable using just local and
+      boundary rules) are E, J, and M.
+
+    p.noprint.
+      The earliest reference we know for this puzzle is
+      the (discontinued) Japanese puzzle magazine <i>Puzzler</i>,
+      which first gave a puzzle in
+      <a href="http://hiroshioka1125.life.coocan.jp/puzzle_book_collection/puzzler/101-150/137_199304/137_199304.html">issue #137 from March 1993</a>.
+      There the puzzle was called &ldquo;白黒をはっきりさせるパズル&rdquo;,
+      meaning &ldquo;a puzzle to make white and black clear&rdquo;.
+      A year later,
+      <a href="http://hiroshioka1125.life.coocan.jp/puzzle_book_collection/puzzler/101-150/150_199405/150_199405.html">issue #150 from April 1994</a>
+      dubbed the puzzle type
+      &ldquo;しろまるくろまる&rdquo; (Shiromaru-Kuromaru or 白丸黒丸),
+      meaning &ldquo;white circle / black circle&rdquo;,
+      and it became a regular puzzle in the magazine.
+      More recent introductions of this puzzle follow the name Yin-Yang,
+      though we do not know the origins of this name.
+
+    p.noprint.
       Check out <a href="http://erikdemaine.org/fonts/">other mathematical and
       puzzle fonts</a>. &bull; Feedback or not working?
       <A HREF="mailto:edemaine+fonts@mit.edu">Email Erik</A>. &bull;
