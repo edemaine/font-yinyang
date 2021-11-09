@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Yin-Yang Font: Connects-Dots Puzzle
+    script(type="text/javascript", src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
+    script(type="text/javascript", src="node_modules/furls/furls.js")
+    script(type="text/javascript", src="node_modules/font-webapp/font-webapp.js")
+    script(type="text/javascript").
+      window.puzzle =
+      //{"clues":319,"black":175,"white":144,"branch":280,"puzzle":
+      "X.o...............................\n.o.......o.XXXXX...X.o...o.X.o.X..\n....ooo..oX.....X.X.Xo.o.....o....\n..Xo.X...oX..X..X.X.X...X.X.o.o...\n..XoX..X.oX.X.X.X.X....X...XX.XX..\n..XoX.....X.X.X.X.X..XooX....Xo...\n..XoX.XX.oX...X.X...o...X..XX.XX..\n..Xo.X..Xo.XXX..X.X...X.X.X...o...\n..X.oo..X.......X.X...X.X.X.Xo....\n..Xo...X.o.XXXXX...X...X...X.o.X..\n..X.ooooo.X.......X.......X.o.ooo.\n.X.XXXXXXX.XXXXXXX.XXXXXXX........\n..ooooooo.ooooooo.........ooooooo.\n.o.......o.......o.X.X.X.o.XXXXX..\n...Xooo..o..ooo..o..X.X.XoX.o...X.\n.o.....o.o.o.X.o.o.oX.X.XoXo..XX..\n...X.oo..o..X.Xo..o.X.X...X.o...o.\n.o..X..o.oX...Xo.o.X...X.o.XXXX...\n...X..o..oX.o.Xo....X.X...ooooo...\n.o..X..o.o.XXX.o.o.X...XX..XX..o..\n..ooooo...ooooo.....X.X.o.X...o...\n.o..XX...o.......o.X.....o.XX.....\n...X...oo.X.ooooo...X...o.X...ooo.\n.................................o";
+    script(type="text/javascript", src="yinyang.js")
+    style
+      include:stylus yinyang.styl
+    //#include virtual="../../analytics.html"
+  body
+    table.w-100
+      tr
+        td.text-left.align-middle
+          h1 <a href="./">Yin-Yang Font</a>: Connects-Dots Puzzle</a>
+        td.text-right.align-middle
+          h2 by <a href="https://erikdemaine.org/">Erik&nbsp;Demaine</a> and <a href="http://martindemaine.org">Martin&nbsp;Demaine</a>, 2021
+
+    #puzzle.w-100
+
+    hr.noprint
+
+    p.noprint.
+      Can you fill in every empty square with either a black or white circle
+      so that the black circles are orthogonally connected together,
+      the white circles are orthogonally connected together, and
+      no 2&nbsp;&times;&nbsp;2 square is all black or all white?
+      This puzzle is a two-full-word puzzle based on the
+      <a href="https://erikdemaine.org/fonts/yinyang/">Yin-Yang font</a>.
+      See <a href="https://erikdemaine.org/fonts/yinyang/">the font page</a>
+      for a description of how we generated the puzzle.
+
+    p.noprint.
+      You can interactively solve the puzzle by clicking on the blank spaces.
+      Left clicking (or touching) toggles between black, white, and blank.
+      Right clicking acts as an eraser.
+      Middle clicking toggles between black and white, or fills in white.
+      You can drag to paint many circles at once.
+      If you make any local mistakes, they will highlight red:
+      2&nbsp;&times;&nbsp;2 squares that are all the same color
+      (invalid by the rules) or that alternate black/white/black/white
+      (a derived rule because it makes connectivity impossible &mdash;
+      see
+      <a href="https://erikdemaine.org/papers/YinYang_CCCG2021/">our paper</a>).
+
+    p.noprint.
+      Check out <a href="https://erikdemaine.org/fonts/">other mathematical and
+      puzzle fonts</a>. &bull; Feedback or not working?
+      <A HREF="mailto:edemaine+fonts@mit.edu">Email Erik</A>. &bull;
+      <a href="https://github.com/edemaine/font-yinyang">Source code on GitHub</a>.

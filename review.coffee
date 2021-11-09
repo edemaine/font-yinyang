@@ -11,6 +11,7 @@ reduce = (process.argv[2] == '--reduce')
 review = {}
 for filename in fs.readdirSync dirname
   continue unless filename.length == 5
+  #continue unless filename.length > 5  # for special puzzles
   letter = filename[0]
   console.log "* #{letter} (#{filename})"
   pathname = path.join dirname, filename
