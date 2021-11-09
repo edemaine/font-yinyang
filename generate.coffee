@@ -373,10 +373,22 @@ generateFont = ->
     codes = randomize Object.keys font
   loop
     for code in codes
-      if code.length == 1
+      code = code.replace /\n/g, '_'
+      if code.length == 1  # single-character puzzle
         puzzle = Puzzle.fromAscii font[code]
         .pad()
-      else
+      else if '_' in code  # multi-line puzzle
+        puzzle = new Puzzle
+        for lineCode in code.split '_'
+          linePuzzle = Puzzle.fromAscii font[lineCode[0]]
+          .padLeftTop()
+          for letter in lineCode[1..]
+            linePuzzle = linePuzzle.concat (Puzzle.fromAscii font[letter]).padLeftTop()
+          linePuzzle = linePuzzle.padBottom BLACK
+          puzzle = puzzle.stack linePuzzle
+        puzzle = puzzle.padLeft BLACK
+        .padRight()
+      else  # single-line puzzle
         puzzle = Puzzle.fromAscii font[code[0]]
         .padLeftTop()
         for letter in code[1..]

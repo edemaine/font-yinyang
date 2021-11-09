@@ -20,7 +20,7 @@ do -> cell2char[k] = c for c, k of char2cell
 class Puzzle
   constructor: (@cell = []) ->
     @nrow = @cell.length
-    @ncol = @cell[0].length
+    @ncol = @cell[0]?.length ? 0
     @branch = 0
   clone: ->
     new @constructor (
@@ -40,15 +40,20 @@ class Puzzle
         cell2char[cell]
       ).join ''
     ).join '\n'
-  padLeftTop: (color = WHITE) ->
-    ## Pad border around top and left sides, as in font
+  padTop: (color = WHITE) ->
+    ## Pad border around top side, as in font
     new @constructor (
-      [color for j in [0...@ncol+1]]
-      .concat (
-        for row in @cell
-          [color, ...row]
-      )
+      [color for j in [0...@ncol]]
+      .concat @cell
     )
+  padLeft: (color = WHITE) ->
+    ## Pad border around left side, as in font
+    new @constructor (
+      for row in @cell
+        [color, ...row]
+    )
+  padLeftTop: (color = WHITE) ->
+    @padLeft(color).padTop(color)
   padRight: (color = WHITE) ->
     ## Pad border around right side, as in font
     new @constructor (
@@ -68,6 +73,8 @@ class Puzzle
       for row, i in @cell
         row.concat other.cell[i]
     )
+  stack: (other) ->
+    new @constructor @cell.concat other.cell
 
   cellsMatching: (color, negate) ->
     for row, i in @cell
