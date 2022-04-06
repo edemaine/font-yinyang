@@ -660,6 +660,8 @@ fontGUI = ->
 
   document.getElementById('reset').addEventListener 'click', ->
     app.render()
+  document.getElementById('nohud')?.addEventListener 'click', ->
+    app.furls.set 'hud', false
 
 window?.onload = ->
   if document.getElementById 'review'

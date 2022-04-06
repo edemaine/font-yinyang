@@ -6,7 +6,7 @@
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.0",
     "font-webapp": "^0.1.2",
-    "furls": "^0.5.0",
+    "furls": "^0.7.0",
     "json-stringify-pretty-compact": "^3.0.0"
   },
   "devDependencies": {
