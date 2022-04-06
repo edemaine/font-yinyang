@@ -638,6 +638,7 @@ fontGUI = ->
   app = new FontWebappHTML
     root: '#output'
     sizeSlider: '#size'
+    sizeName: 'size'
     charWidth: 225
     charPadding: 5
     charKern: 0
