@@ -5,8 +5,8 @@
   "main": "yinyang.js",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.0",
-    "font-webapp": "^0.2.0",
-    "furls": "^0.8.0",
+    "font-webapp": "^0.2.1",
+    "furls": "^0.8.1",
     "json-stringify-pretty-compact": "^3.0.0"
   },
   "devDependencies": {
