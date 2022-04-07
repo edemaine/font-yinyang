@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Yin-Yang Font: G4G Puzzle
+    script(type="text/javascript", src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
+    script(type="text/javascript", src="node_modules/furls/furls.js")
+    script(type="text/javascript", src="node_modules/font-webapp/font-webapp.js")
+    script(type="text/javascript").
+      window.puzzle =
+      //{"clues":67,"black":22,"white":45,"branch":212,"puzzle":
+      ".................\n..X.o.X.o........\n....o...o..oooo..\n..o.o.o.o.o.XX...\n..o.o.o.o.oX...o.\n..o.o.o.o.oX..X..\n..o.o.o.o.oX.X.X.\n..o.o.o.o.o.X..X.\n..o.o.o..o.....X.\n..o...o.o.XXXXX..\n.X.ooo.o.X.......\nX...............X";
+    script(type="text/javascript", src="yinyang.js")
+    style
+      include:stylus yinyang.styl
+    //#include virtual="../../analytics.html"
+  body
+    table.w-100
+      tr
+        td.text-left.align-middle
+          h1 <a href="./">Yin-Yang Font</a>: G4G&nbsp;Puzzle</a>
+        td.text-right.align-middle
+          h2 by <a href="https://erikdemaine.org/">Erik&nbsp;Demaine</a> and <a href="http://martindemaine.org">Martin&nbsp;Demaine</a>, 2022
+
+    #puzzle.w-100
+
+    hr.noprint
+
+    p.noprint.
+      Can you fill in every empty square with either a black or white circle
+      so that the black circles are orthogonally connected together,
+      the white circles are orthogonally connected together, and
+      no 2&nbsp;&times;&nbsp;2 square is all black or all white?
+      This puzzle is a full-word puzzle based on the
+      <a href="https://erikdemaine.org/fonts/yinyang/">Yin-Yang font</a>,
+      and was featured as part of a
+      G4G14 presentation.
+      See <a href="https://erikdemaine.org/fonts/yinyang/">the font page</a>
+      for a description of how we generated the puzzle.
+
+    p.noprint.
+      You can interactively solve the puzzle by clicking on the blank spaces.
+      Left clicking (or touching) toggles between black, white, and blank.
+      Right clicking acts as an eraser.
+      Middle clicking toggles between black and white, or fills in white.
+      You can drag to paint many circles at once.
+      If you make any local mistakes, they will highlight red:
+      2&nbsp;&times;&nbsp;2 squares that are all the same color
+      (invalid by the rules) or that alternate black/white/black/white
+      (a derived rule because it makes connectivity impossible &mdash;
+      see
+      <a href="https://erikdemaine.org/papers/YinYang_CCCG2021/">our paper</a>).
+
+    p.noprint.
+      Check out <a href="https://erikdemaine.org/fonts/">other mathematical and
+      puzzle fonts</a>. &bull; Feedback or not working?
+      <A HREF="mailto:edemaine+fonts@mit.edu">Email Erik</A>. &bull;
+      <a href="https://github.com/edemaine/font-yinyang">Source code on GitHub</a>.
